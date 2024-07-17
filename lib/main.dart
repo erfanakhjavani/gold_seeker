@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gold_seeker/features/features_intro/feature_login/screens/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:gold_seeker/features/features_intro/feature_splash/presentation/screens/splash_screen.dart';
+import 'features/features_intro/feature_splash/presentation/bloc/splash_cubit/splash_cubit.dart';
 
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_)=> SplashCubit()),
+      ], child: const MyApp()));
 }
 
 
@@ -16,9 +22,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return  const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }
