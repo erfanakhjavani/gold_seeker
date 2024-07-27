@@ -12,25 +12,24 @@ class SplashRepository{
 
     if (connectivityResult == ConnectivityResult.none) {
       /// No network connection.
-      return false;
+      return true;
     } else {
       /// Connected to a network (Wi-Fi or mobile).
       try {
         final response = await http.get(Uri.parse('https://www.google.com')).timeout(const Duration(seconds: 5));
         if (response.statusCode == 200) {
           /// Internet connection is available.
-          throw Exception();
-          return true;
+           return true;
         } else {
           /// Connected to a network but no internet access.
-          return false;
+          return true;
         }
       } on TimeoutException catch (_) {
         /// Request timed out (considered as no internet access).
-        return false;
+        return true;
       } catch (e) {
         /// Other errors.
-        return false;
+        return true;
       }
     }
   }

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as Tra;
 import 'package:get/get.dart';
-import 'package:gold_seeker/features/features_intro/feature_login/screens/login_screen.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../../feature_login/screens/login_screen.dart';
 import '../bloc/splash_cubit/splash_cubit.dart';
 
 
 
 class SplashScreen extends StatefulWidget {
   static const routeName = "/splash_screen";
-  const SplashScreen({super.key});
+
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -78,14 +78,18 @@ class _SplashScreenState extends State<SplashScreen> {
                                 fontWeight: FontWeight.bold
                             ),),
                             const SizedBox(height: 10,),
-                            IconButton(
-                                splashColor: Colors.white,
-                                onPressed: (){
-                                  /// check that we are online or not
-                                  BlocProvider.of<SplashCubit>(context).checkConnectionEvent();
-                                },
-                                icon: const Icon(Icons.autorenew, color: Colors.white,)),
-                            const Text('Retry', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: "Irs"),),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                              IconButton(
+                                  splashColor: Colors.white,
+                                  onPressed: (){
+                                    /// check that we are online or not
+                                    BlocProvider.of<SplashCubit>(context).checkConnectionEvent();
+                                  },
+                                  icon: const Icon(Icons.autorenew, color: Colors.white,)),
+                              const Text('Retry', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: "Irs"),),
+                            ],)
                           ],
                         ),
                       );
@@ -111,7 +115,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> gotoHome() {
     return Future.delayed(const Duration(seconds: 3), () {
-      Navigator.canPop(context);
+      Navigator.pop(context);
       Get.to(LoginScreen(),transition: Tra.Transition.native);
 
     });

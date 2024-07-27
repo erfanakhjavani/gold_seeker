@@ -4,29 +4,32 @@ import 'package:get/get.dart';
 import 'login_screen.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      backgroundColor: const Color.fromARGB(255, 29, 29, 29),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/forgot_password.jpg'),
-              fit: BoxFit.cover),
-        ),
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //       image: AssetImage('assets/images/forgot_password.jpg'),
+        //       fit: BoxFit.cover),
+        // ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-
+              const Padding(
+                padding: EdgeInsets.only(top: 100.0, right: 100.0, bottom: 50.0),
+                child: MainText(text: 'Recovery \n Password', size: 40),
+              ),
               const SizedBox(
-                height: 150,
+                height: 50,
               ),
 
               TextFields(
-                colorSide: const Color.fromRGBO(49, 3, 187, 1.0),
                 controller: TextEditingController(),
                 isObscured: false,
                 text: 'Enter your email address',
@@ -40,13 +43,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               acceptText(),
               const SizedBox(height: 50,),
               middleWidget(),
-              const SizedBox(height: 50,),
-              const Padding(
-                padding: EdgeInsets.only(right: 150.0),
-                child: MainText(text: 'Recovery \n Password', size: 40),
-              ),
-              const SizedBox(height: 80,),
-
+              const SizedBox(height: 65,),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -56,7 +53,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       backgroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
                           side: const BorderSide(
-                              color: Color.fromRGBO(49, 3, 187, 1.0),
+                              color:  Color.fromRGBO(78, 24, 220, 1.0),
                               width: 2),
                           borderRadius: BorderRadius.circular(10))),
                   child: const Text(
@@ -95,10 +92,10 @@ class ForgotPasswordScreen extends StatelessWidget {
 
           IconButton(
             iconSize: 25,
-            splashColor: const Color.fromRGBO(248, 75, 42, 1.0),
             style: IconButton.styleFrom(
-                elevation: 10,
-                backgroundColor: const Color.fromRGBO(0, 117, 250, 1.0),
+                elevation: 20,
+                backgroundColor: const Color.fromRGBO(78, 24, 220, 1.0),
+                shadowColor: const Color.fromRGBO(78, 24, 220, 1.0),
                 fixedSize: const Size.fromRadius(30),
                 shape: const CircleBorder()),
             onPressed: () {},

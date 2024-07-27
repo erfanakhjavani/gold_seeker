@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gold_seeker/features/features_intro/feature_login/screens/forgot_password.dart';
-import 'package:gold_seeker/features/features_intro/feature_signup/signup_screen.dart';
+
+import '../../../../appodeal/appodeal_main.dart';
+import '../../feature_signup/screens/signup_screen.dart';
+import 'forgot_password.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+
 
   final TextEditingController userController = TextEditingController();
   final TextEditingController passController = TextEditingController();
@@ -13,33 +15,38 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+     // backgroundColor: const Color.fromARGB(255, 29, 29, 29),
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/login.jpg'),
-              fit: BoxFit.fitHeight),
+              image: AssetImage('assets/images/background.gif'),
+              fit: BoxFit.fitHeight
+          ),
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 100.0, right: 100.0),
+                padding: EdgeInsets.only(top: 100.0, right: 100.0,),
                 child: MainText(
                   size: 40,
                   text: 'Welcome to',
+                  color: Colors.black,
                 ),
               ),
               const MainText(
                 size: 40,
                 text: 'Gold Seeker!',
+                color: Colors.black,
               ),
               const SizedBox(
-                height: 60,
+                height: 114,
               ),
               TextFields(
-                colorSide: const Color.fromARGB(203, 149, 0, 0),
+
                 controller: userController,
                 isObscured: false,
                 text: 'Username or Email',
@@ -49,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                 height: 30,
               ),
               TextFields(
-                colorSide: const Color.fromARGB(203, 149, 0, 0),
+
                 controller: passController,
                 isObscured: true,
                 text: 'Password',
@@ -59,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                 text: 'Forgot Password?',
                 size: 15,
                 onPressed: () {
-                  Get.to(const ForgotPasswordScreen(),transition: Transition.fadeIn);
+                  Get.to(ForgotPasswordScreen(), transition: Transition.fadeIn);
                 },
               ),
               middleWidget(),
@@ -67,22 +74,16 @@ class LoginScreen extends StatelessWidget {
                 padding: EdgeInsets.only(top: 50.0, bottom: 10),
                 child: MainText(text: "I don't have account!", size: 20),
               ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Get.to(const SignupScreen(),
-                        transition: Transition.rightToLeftWithFade);
-                  },
-                  style: TextButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                              color: Colors.redAccent, width: 2),
-                          borderRadius: BorderRadius.circular(10))),
-                  child: const Text(
-                    'Create account',
-                    style: TextStyle(color: Colors.white),
-                  ))
+              ButtonColorSide(
+                textColor: Colors.white,
+                colorSide: Colors.redAccent,
+                onPressed: () {
+                  Navigator.canPop(context);
+                  Get.to(SignupScreen(),
+                      transition: Transition.rightToLeftWithFade);
+                },
+                text: 'Create account',
+              )
             ],
           ),
         ),
@@ -97,16 +98,20 @@ class LoginScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const MainText(text: "Sign In", size: 30),
+          const MainText(text: "Appodeal", size: 30),
           IconButton(
             iconSize: 25,
             splashColor: const Color.fromRGBO(248, 75, 42, 1.0),
             style: IconButton.styleFrom(
-                elevation: 10,
+                elevation: 20,
                 backgroundColor: const Color.fromRGBO(248, 75, 42, 1.0),
+                shadowColor: const Color.fromRGBO(248, 75, 42, 1.0),
+
                 fixedSize: const Size.fromRadius(30),
                 shape: const CircleBorder()),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(AppodealDemoApp(), transition: Transition.fadeIn);
+            },
             icon: const Icon(Icons.arrow_forward_rounded),
             color: Colors.white,
           )
@@ -116,12 +121,58 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
+
+//! Button Color Side
+class ButtonColorSide extends StatelessWidget {
+
+  final Color colorSide;
+  final String text;
+  final Function() onPressed;
+  final double? width;
+  final double? height;
+  final double? textSize;
+  final Color? textColor;
+
+
+  ButtonColorSide(
+      {
+        required this.colorSide,
+        required this.text,
+        required this.onPressed,
+         this.width,
+         this.height,
+         this.textSize,
+         this.textColor,
+      });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: TextButton(
+        onPressed: onPressed,
+        style: TextButton.styleFrom(
+            backgroundColor: Colors.black,
+            shape: RoundedRectangleBorder(
+                side:  BorderSide(
+                    color: colorSide, width: 2),
+                borderRadius: BorderRadius.circular(10))),
+        child:  Text(
+        text,
+        style: TextStyle(color: textColor == null ? Colors.white : textColor,fontSize: textSize),
+      )),
+    );
+  }
+}
+
 //! Main Text Widget
 class MainText extends StatelessWidget {
   final String text;
   final double size;
+  final Color? color;
 
-  const MainText({super.key, required this.text, required this.size});
+  const MainText({ required this.text, required this.size,this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +181,8 @@ class MainText extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w900, fontSize: size),
+              color: color == null ? Colors.white : color,
+              fontWeight: FontWeight.w900, fontSize: size),
         ),
       ],
     );
@@ -143,11 +195,10 @@ class FuncText extends StatelessWidget {
   final double size;
   final Function() onPressed;
 
-  const FuncText(
-      {super.key,
-      required this.text,
-      required this.size,
-      required this.onPressed});
+  const FuncText({
+    required this.text,
+    required this.size,
+    required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +211,7 @@ class FuncText extends StatelessWidget {
               onTap: onPressed,
               child: Container(
                 margin: const EdgeInsets.all(10.0),
-              padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(66, 0, 0, 0),
                   borderRadius: BorderRadius.circular(10.0),
@@ -182,15 +233,13 @@ class TextFields extends StatefulWidget {
   final bool isObscured;
   final String text;
   final IconData icon;
-  final Color colorSide;
 
-  const TextFields(
-      {super.key,
-      required this.colorSide,
-      required this.controller,
-      required this.isObscured,
-      required this.text,
-      required this.icon});
+
+  const TextFields({
+    required this.controller,
+    required this.isObscured,
+    required this.text,
+    required this.icon});
 
   @override
   State<TextFields> createState() => _TextFieldsState();
@@ -206,7 +255,7 @@ class _TextFieldsState extends State<TextFields> {
         padding: const EdgeInsets.only(left: 20, right: 20),
         child: Container(
           decoration: BoxDecoration(
-              color: const Color.fromARGB(203, 38, 38, 38),
+              color: const Color.fromARGB(179, 38, 38, 38),
               borderRadius: BorderRadius.circular(12)),
           child: TextField(
             style: const TextStyle(
@@ -225,38 +274,43 @@ class _TextFieldsState extends State<TextFields> {
               ),
               suffixIcon: widget.isObscured
                   ? Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15.0),
-                      child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              obscured = !obscured;
-                            });
-                          },
-                          icon: Icon(
-                            obscured
-                                ? CupertinoIcons.eye
-                                : CupertinoIcons.eye_slash,
-                            color: const Color.fromARGB(203, 98, 98, 98),
-                            size: 25,
-                          )),
-                    )
+                padding: const EdgeInsets.only(left: 15, right: 15.0),
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obscured = !obscured;
+                      });
+                    },
+                    icon: Icon(
+                      obscured
+                          ? CupertinoIcons.eye
+                          : CupertinoIcons.eye_slash,
+                      color: const Color.fromARGB(203, 98, 98, 98),
+                      size: 25,
+                    )),
+              )
                   : null,
               hintText: widget.text,
               hintStyle: const TextStyle(
                   color: Color.fromARGB(255, 118, 118, 118),
                   fontSize: 14,
+                  letterSpacing: 1,
                   fontWeight: FontWeight.w400),
-              fillColor: const Color.fromARGB(150, 38, 38, 38),
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)),
-                borderSide: BorderSide(
-                    color: Color.fromARGB(150, 38, 38, 38), width: 10),
+
               ),
-              focusedBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: widget.colorSide,
+                  color: Colors.transparent,
                 ),
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
             ),
           ),
