@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:gs/Core/Constants/app_layout.dart';
-import 'package:gs/Core/Gen/fonts.gen.dart';
 import 'package:gs/Core/Widgets/button_widgets.dart';
-import 'package:gs/Features/Users/Registration/Gender/user_registration_gender_view.dart';
-import 'package:gs/Features/Users/Registration/Language/user_registration_language_viewmodel.dart';
-
+import 'package:gs/Features/Users/Registration/UserName/user_registration_username_viewmodel.dart';
 import '../../../../Core/Gen/assets.gen.dart';
 
 class UserRegistrationUsernameView extends StatelessWidget {
   UserRegistrationUsernameView({super.key});
 
-  final UserRegistrationLanguageViewModel languageController = Get.put(UserRegistrationLanguageViewModel());
-
+  final UserRegistrationUsernameViewModel usernameController = Get.put(UserRegistrationUsernameViewModel());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -24,27 +22,34 @@ class UserRegistrationUsernameView extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             child: Assets.jpg.background.image(
-                fit: BoxFit.cover
+              fit: BoxFit.cover,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 200,bottom: 50),
+            padding: const EdgeInsets.only(bottom: 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-
-
-                ButtonWidget(
-                  text: "NEXT",
-                  onPressed: (){
-
-                    Get.to(UserRegistrationGenderView(),
-                        transition: Transition.noTransition
-                    );
-                  },
-                  width: AppLayout.buttonMinWidth * 0.55,
-                  color: Colors.orange,
-                ),
+                const Leading(),
+                TextFields(
+                  text: 'username',
+                  controller: usernameController.usernameController,
+                  padding: AppLayout.primaryAllPadding * 4,
+                  hintStyle: Get.textTheme.bodyLarge,
+                ).animate().fadeIn(delay: 5.ms),
+                Obx(() {
+                  bool isSelected = usernameController.username.value.isEmpty;
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    width: isSelected ? AppLayout.buttonMinWidth * 0.45 : AppLayout.buttonMinWidth * 0.55,
+                    child: ButtonWidget(
+                      text: "START",
+                      onPressed: () {
+                      },
+                      color: isSelected ? Colors.grey : Colors.deepOrangeAccent,
+                    ),
+                  );
+                }),
               ],
             ),
           ),
@@ -53,4 +58,3 @@ class UserRegistrationUsernameView extends StatelessWidget {
     );
   }
 }
-

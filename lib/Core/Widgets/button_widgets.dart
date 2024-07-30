@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gif/gif.dart';
+import 'package:gs/Core/Gen/fonts.gen.dart';
 import '../Constants/app_colors.dart';
 
 
@@ -81,72 +82,59 @@ class ButtonWidget extends StatelessWidget {
 
 
  //! Text Field Widget
- class TextFields extends StatefulWidget {
+ class TextFields extends StatelessWidget {
+
    final TextEditingController controller;
-   final bool isObscured;
    final String text;
-   final IconData icon;
+   final IconData? icon;
+   final EdgeInsets? padding;
+   final TextStyle? inputStyle;
+   final TextStyle? hintStyle;
+   final Color? backgroundColor;
 
-
-   const TextFields({
+   const TextFields({super.key,
      required this.controller,
-     required this.isObscured,
      required this.text,
-     required this.icon});
-
-   @override
-   State<TextFields> createState() => _TextFieldsState();
- }
-
- //* username and password is state full widget
- class _TextFieldsState extends State<TextFields> {
-   bool obscured = true;
+     this.icon,
+     this.padding,
+     this.inputStyle,
+     this.hintStyle,
+     this.backgroundColor
+   });
 
    @override
    Widget build(BuildContext context) {
      return Padding(
-         padding: const EdgeInsets.only(left: 20, right: 20),
+         padding: padding ?? const EdgeInsets.only(left: 20, right: 20),
          child: Container(
            decoration: BoxDecoration(
-               color: const Color.fromARGB(179, 38, 38, 38),
+               color: backgroundColor ?? Colors.black45,
                borderRadius: BorderRadius.circular(12)),
            child: TextField(
-             style: const TextStyle(
-                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
-             controller: widget.controller,
-             obscureText: widget.isObscured ? obscured : widget.isObscured,
+             style: inputStyle ?? const TextStyle(
+                 inherit: true,
+                 color: Colors.white, fontSize: 16,
+                 fontWeight: FontWeight.w500),
+             controller: controller,
              cursorColor: Colors.white,
              decoration: InputDecoration(
-               prefixIcon: Padding(
+               prefixIcon: icon == null ? null : Padding(
                  padding: const EdgeInsets.only(left: 15, right: 15.0),
                  child: Icon(
-                   widget.icon,
+                   icon,
                    color: const Color.fromARGB(203, 98, 98, 98),
                    size: 25,
                  ),
                ),
-               suffixIcon: widget.isObscured
-                   ? Padding(
-                 padding: const EdgeInsets.only(left: 15, right: 15.0),
-                 child: IconButton(
-                     onPressed: () {},
-                     icon: const Icon(
-
-                       CupertinoIcons.eye_slash,
-                       color: Color.fromARGB(203, 98, 98, 98),
-                       size: 25,
-                     )),
-               )
-                   : null,
-               hintText: widget.text,
-               hintStyle: const TextStyle(
+               hintText: text,
+               hintStyle: hintStyle ?? const TextStyle(
                    color: Color.fromARGB(255, 118, 118, 118),
                    fontSize: 14,
                    letterSpacing: 1,
                    fontWeight: FontWeight.w400),
+               hintTextDirection: TextDirection.ltr,
                border: const OutlineInputBorder(
                  borderRadius: BorderRadius.all(Radius.circular(12)),
-
                ),
                enabledBorder: const OutlineInputBorder(
                  borderSide: BorderSide(
@@ -161,8 +149,46 @@ class ButtonWidget extends StatelessWidget {
                  borderRadius: BorderRadius.all(Radius.circular(12)),
                ),
              ),
+             textAlign: TextAlign.center,
            ),
          ));
+   }
+ }
+
+
+
+//! Leading
+class Leading extends StatelessWidget {
+
+   final String? text;
+   final Color? color;
+
+
+   const Leading({super.key, this.text, this.color});
+
+   @override
+   Widget build(BuildContext context) {
+     return AppBar(
+       backgroundColor: Colors.transparent,
+       elevation: 0,
+       leading: Padding(
+         padding: const EdgeInsets.only(left: 12.0,top: 10,right: 10),
+         child: GestureDetector(
+           onTap: () => Navigator.pop(context),
+           child: Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             mainAxisSize: MainAxisSize.max,
+             children: [
+               const Icon(Icons.arrow_back_ios,size: 30,),
+               Text(
+                 text ?? 'Back',
+                 style: Get.textTheme.bodyLarge?.copyWith(color: color ?? Colors.black),
+               ),
+             ],
+           ),
+         ),
+       ),
+     );
    }
  }
 

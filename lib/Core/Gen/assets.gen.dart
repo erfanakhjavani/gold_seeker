@@ -12,18 +12,11 @@ import 'package:flutter/widgets.dart';
 class $AssetsGifGen {
   const $AssetsGifGen();
 
-  /// File path: assets/gif/background.gif
-  AssetGenImage get background =>
-      const AssetGenImage('assets/gif/background.gif');
-
-  /// File path: assets/gif/man.gif
-  AssetGenImage get man => const AssetGenImage('assets/gif/man.gif');
-
   /// File path: assets/gif/woman.gif
   AssetGenImage get woman => const AssetGenImage('assets/gif/woman.gif');
 
   /// List of all assets
-  List<AssetGenImage> get values => [background, man, woman];
+  List<AssetGenImage> get values => [woman];
 }
 
 class $AssetsJpgGen {
@@ -37,11 +30,25 @@ class $AssetsJpgGen {
   List<AssetGenImage> get values => [background];
 }
 
+class $AssetsWebpGen {
+  const $AssetsWebpGen();
+
+  /// File path: assets/webp/man.webp
+  AssetGenImage get man => const AssetGenImage('assets/webp/man.webp');
+
+  /// File path: assets/webp/woman.webp
+  AssetGenImage get woman => const AssetGenImage('assets/webp/woman.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [man, woman];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsGifGen gif = $AssetsGifGen();
   static const $AssetsJpgGen jpg = $AssetsJpgGen();
+  static const $AssetsWebpGen webp = $AssetsWebpGen();
 }
 
 class AssetGenImage {

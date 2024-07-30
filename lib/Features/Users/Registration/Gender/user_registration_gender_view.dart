@@ -16,6 +16,7 @@ class UserRegistrationGenderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -28,10 +29,11 @@ class UserRegistrationGenderView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 250, bottom: 50),
+            padding: const EdgeInsets.only(bottom: 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                const Leading(),
                 Padding(
 
                   padding: const EdgeInsets.only(right: 30.0,left: 30.0),
@@ -43,16 +45,23 @@ class UserRegistrationGenderView extends StatelessWidget {
                     ],
                   ),
                 ),
-                ButtonWidget(
-                  text: "NEXT",
-                  onPressed: () {
-                    Get.to(UserRegistrationUsernameView(),
-                        transition: Transition.noTransition
-                    );
-                  },
-                  width: AppLayout.buttonMinWidth * 0.55,
-                  color: Colors.orange,
-                ),
+                Obx(() {
+                  bool isSelected = genderController.selectedCharacter.value.isEmpty;
+                  return AnimatedContainer(
+                    curve: Curves.easeInOutQuart,
+                    duration: const Duration(milliseconds: 300),
+                    width: isSelected ? AppLayout.buttonMinWidth * 0.45 : AppLayout.buttonMinWidth * 0.55,
+                    child: ButtonWidget(
+                      text: "NEXT",
+                      onPressed: () {
+                        if (!isSelected) {
+                          Get.to(UserRegistrationUsernameView(), transition: Transition.noTransition);
+                        }
+                      },
+                      color: isSelected ? Colors.grey : Colors.orange,
+                    ),
+                  );
+                })
               ],
             ),
           ),
@@ -81,20 +90,22 @@ class WomanCharacter extends StatelessWidget {
         bool isSelected = genderController.selectedCharacter.value == 'woman';
         return Column(
           children: [
-            Container(
+            AnimatedContainer(
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 4,
                   color: Colors.transparent,
                 ),
                 image: DecorationImage(
-                  image: Assets.gif.woman.provider(),
+                  image: Assets.webp.woman.provider(),
                   fit: BoxFit.cover,
                 ),
                 shape: BoxShape.circle,
               ),
-              width: isSelected ? 70 : 60,
-              height: isSelected ? 70 : 60,
+              width: isSelected ? 80 : 70,
+              height: isSelected ? 80 : 70,
+              duration: 300.ms,
+              curve: Curves.easeInOutQuart,
             ),
             const Gap(10),
             ButtonWidget(
@@ -137,20 +148,22 @@ class ManCharacter extends StatelessWidget {
         bool isSelected = genderController.selectedCharacter.value == 'man';
         return Column(
           children: [
-            Container(
+            AnimatedContainer(
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 4,
                   color:  Colors.transparent,
                 ),
                 image: DecorationImage(
-                  image: Assets.gif.man.provider(),
+                  image: Assets.webp.man.provider(),
                   fit: BoxFit.cover,
                 ),
                 shape: BoxShape.circle,
               ),
-              width: isSelected ? 70 : 60,
-              height: isSelected ? 70 : 60,
+              width: isSelected ? 80 : 70,
+              height: isSelected ? 80 : 70,
+              duration: 300.ms,
+              curve: Curves.easeInOutQuart,
             ),
             const Gap(10),
             ButtonWidget(
@@ -160,7 +173,7 @@ class ManCharacter extends StatelessWidget {
               },
               width: 90,
               height: 35,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
               ),
