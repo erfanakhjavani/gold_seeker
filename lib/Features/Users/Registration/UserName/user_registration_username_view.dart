@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:gs/Core/Constants/app_layout.dart';
 import 'package:gs/Core/Widgets/button_widgets.dart';
+import 'package:gs/Features/Users/Game/MainWrapper/Mining/user_game_main_wrapper_mining_view.dart';
+import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_view.dart';
 import 'package:gs/Features/Users/Registration/UserName/user_registration_username_viewmodel.dart';
 import '../../../../Core/Gen/assets.gen.dart';
 
@@ -14,7 +16,6 @@ class UserRegistrationUsernameView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -45,6 +46,10 @@ class UserRegistrationUsernameView extends StatelessWidget {
                     child: ButtonWidget(
                       text: "START",
                       onPressed: () {
+                        isSelected ? null :
+                        Get.to(UserGameMainWrapperView(),
+                          transition: Transition.fadeIn
+                        );
                       },
                       color: isSelected ? Colors.grey : Colors.deepOrangeAccent,
                     ),

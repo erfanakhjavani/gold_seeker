@@ -1,8 +1,5 @@
- import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gif/gif.dart';
-import 'package:gs/Core/Gen/fonts.gen.dart';
 import '../Constants/app_colors.dart';
 
 
@@ -49,29 +46,29 @@ class ButtonWidget extends StatelessWidget {
 
 
 //! Gif
- class GifBG extends StatelessWidget {
-   final ImageProvider<Object> image;
-   final BoxFit? fit;
-   final double? fps;
-   final double? width;
-   final double? height;
-
-
-   const GifBG({required this.image, this.fit, this.fps, this.width,super.key, this.height});
-
-
-  @override
-   Widget build(BuildContext context) {
-    return Gif(
-       image: image,
-       fit: BoxFit.cover,
-       fps: 20,
-       width: double.infinity,
-       height: double.infinity,
-       autostart: Autostart.loop,
-     );
-   }
- }
+//  class GifBG extends StatelessWidget {
+//    final ImageProvider<Object> image;
+//    final BoxFit? fit;
+//    final double? fps;
+//    final double? width;
+//    final double? height;
+//
+//
+//    const GifBG({required this.image, this.fit, this.fps, this.width,super.key, this.height});
+//
+//
+//   @override
+//    Widget build(BuildContext context) {
+//     return Gif(
+//        image: image,
+//        fit: BoxFit.cover,
+//        fps: 20,
+//        width: double.infinity,
+//        height: double.infinity,
+//        autostart: Autostart.loop,
+//      );
+//    }
+//  }
 
 
 
