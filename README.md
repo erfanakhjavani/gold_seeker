@@ -18,3 +18,6 @@ samples, guidance on mobile development, and a full API reference.
 
 
 dart run build_runner build
+
+FaIcon(FontAwesomeIcons.coins),color: Color.fromRGBO(
+179, 154, 45, 1.0)

@@ -9,10 +9,20 @@ class AppThemes{
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
     fontFamily: 'Poppins',
     textTheme: TextTheme(
-      bodyLarge:
+      labelLarge:
+      Get.textTheme.labelLarge?.copyWith(fontSize: 12,fontWeight: FontWeight.w400,color: AppColors.secondary),
+        labelMedium:
+      Get.textTheme.labelMedium?.copyWith(fontSize: 10,fontWeight: FontWeight.w400,color: AppColors.secondary),
+        labelSmall:
+      Get.textTheme.labelSmall?.copyWith(fontSize: 8,fontWeight: FontWeight.w400,color: AppColors.secondary),
+      bodySmall:
+      Get.textTheme.bodySmall?.copyWith(fontSize: 14,fontWeight: FontWeight.w500,color: AppColors.secondary),
+       bodyMedium:
+       Get.textTheme.bodyMedium?.copyWith(fontSize: 16,fontWeight: FontWeight.w500,color: AppColors.secondary),
+       bodyLarge:
       Get.textTheme.bodyLarge?.copyWith(fontSize: 18,fontWeight: FontWeight.w500,color: AppColors.secondary),
       headlineLarge:
-        Get.textTheme.headlineLarge?.copyWith(fontSize: 30,fontWeight: FontWeight.w500,color: Colors.white)),
+        Get.textTheme.headlineLarge?.copyWith(fontSize: 30,fontWeight: FontWeight.w600,color: Colors.white)),
 
     useMaterial3: true
   );

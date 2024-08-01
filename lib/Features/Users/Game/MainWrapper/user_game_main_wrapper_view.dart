@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gs/Core/Constants/app_colors.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_viewmodel.dart';
 
 import '../../Registration/Gender/user_registration_gender_view.dart';
@@ -15,7 +16,7 @@ class UserGameMainWrapperView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(67, 155, 171, 1.0),
+      backgroundColor: AppColors.blueCode,
       body: GetBuilder<UserGameMainWrapperViewModel>(
           builder: (context) => PageView(
           onPageChanged: userGameMainWrapperViewModel.onPageChanged,
@@ -36,7 +37,7 @@ class UserGameMainWrapperView extends StatelessWidget {
         () => ConvexAppBar(
       style: TabStyle.react,
       backgroundColor: const Color.fromRGBO(41, 41, 41, 1.0),
-      activeColor: const Color.fromRGBO(67, 155, 171, 1.0),
+      activeColor: AppColors.blueCode,
       shadowColor: Colors.blueGrey,
       items: const [
         TabItem(

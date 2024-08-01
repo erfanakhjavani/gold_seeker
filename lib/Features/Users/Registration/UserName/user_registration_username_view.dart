@@ -33,7 +33,7 @@ class UserRegistrationUsernameView extends StatelessWidget {
               children: <Widget>[
                 const Leading(),
                 TextFields(
-                  text: 'username',
+                  text: 'Username',
                   controller: usernameController.usernameController,
                   padding: AppLayout.primaryAllPadding * 4,
                   hintStyle: Get.textTheme.bodyLarge,
