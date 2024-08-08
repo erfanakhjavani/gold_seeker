@@ -9,25 +9,47 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsGifGen {
-  const $AssetsGifGen();
-
-  /// File path: assets/gif/woman.gif
-  AssetGenImage get woman => const AssetGenImage('assets/gif/woman.gif');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [woman];
-}
-
 class $AssetsJpgGen {
   const $AssetsJpgGen();
+
+  /// File path: assets/jpg/back sky.jpg
+  AssetGenImage get backSky => const AssetGenImage('assets/jpg/back sky.jpg');
 
   /// File path: assets/jpg/background.jpg
   AssetGenImage get background =>
       const AssetGenImage('assets/jpg/background.jpg');
 
+  /// File path: assets/jpg/backgroundGame.jpg
+  AssetGenImage get backgroundGame =>
+      const AssetGenImage('assets/jpg/backgroundGame.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [background];
+  List<AssetGenImage> get values => [backSky, background, backgroundGame];
+}
+
+class $AssetsPngGen {
+  const $AssetsPngGen();
+
+  /// File path: assets/png/craft.png
+  AssetGenImage get craft => const AssetGenImage('assets/png/craft.png');
+
+  /// File path: assets/png/erth.png
+  AssetGenImage get erth => const AssetGenImage('assets/png/erth.png');
+
+  /// File path: assets/png/girl.png
+  AssetGenImage get girl => const AssetGenImage('assets/png/girl.png');
+
+  /// File path: assets/png/hatter.png
+  AssetGenImage get hatter => const AssetGenImage('assets/png/hatter.png');
+
+  /// File path: assets/png/iconUp.png
+  AssetGenImage get iconUp => const AssetGenImage('assets/png/iconUp.png');
+
+  /// File path: assets/png/shovel.png
+  AssetGenImage get shovel => const AssetGenImage('assets/png/shovel.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [craft, erth, girl, hatter, iconUp, shovel];
 }
 
 class $AssetsWebpGen {
@@ -46,8 +68,8 @@ class $AssetsWebpGen {
 class Assets {
   Assets._();
 
-  static const $AssetsGifGen gif = $AssetsGifGen();
   static const $AssetsJpgGen jpg = $AssetsJpgGen();
+  static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsWebpGen webp = $AssetsWebpGen();
 }
 

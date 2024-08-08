@@ -31,7 +31,12 @@ class UserRegistrationUsernameView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const Leading(),
+                customAppBar(
+                    icon: Icons.arrow_back,
+                    color: Colors.black,
+                    backColor: Colors.transparent,
+                    text: 'Back'
+                ),
                 TextFields(
                   text: 'Username',
                   controller: usernameController.usernameController,
@@ -47,6 +52,7 @@ class UserRegistrationUsernameView extends StatelessWidget {
                       text: "START",
                       onPressed: () {
                         isSelected ? null :
+                            usernameController.setUserName(usernameController.username.value);
                         Get.to(UserGameMainWrapperView(),
                           transition: Transition.fadeIn
                         );

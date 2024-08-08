@@ -33,7 +33,12 @@ class UserRegistrationGenderView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const Leading(),
+                 customAppBar(
+                   icon: Icons.arrow_back,
+                   color: Colors.black,
+                   backColor: Colors.transparent,
+                   text: 'Back'
+                 ),
                 Padding(
 
                   padding: const EdgeInsets.only(right: 30.0,left: 30.0),

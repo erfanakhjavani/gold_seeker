@@ -21,6 +21,10 @@ class AppThemes{
        Get.textTheme.bodyMedium?.copyWith(fontSize: 16,fontWeight: FontWeight.w500,color: AppColors.secondary),
        bodyLarge:
       Get.textTheme.bodyLarge?.copyWith(fontSize: 18,fontWeight: FontWeight.w500,color: AppColors.secondary),
+      headlineMedium:
+      Get.textTheme.headlineMedium?.copyWith(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white),
+      headlineSmall:
+      Get.textTheme.headlineSmall?.copyWith(fontSize: 20,fontWeight: FontWeight.w600,color: Colors.white),
       headlineLarge:
         Get.textTheme.headlineLarge?.copyWith(fontSize: 30,fontWeight: FontWeight.w600,color: Colors.white)),
 

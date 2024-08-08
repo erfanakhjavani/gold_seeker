@@ -1,3 +1,6 @@
 class UserRegistrationUsernameModel{
-  UserRegistrationUsernameModel();
+  String? userName;
+
+
+  UserRegistrationUsernameModel({this.userName});
 }

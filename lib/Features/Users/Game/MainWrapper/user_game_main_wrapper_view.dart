@@ -2,8 +2,9 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gs/Core/Constants/app_colors.dart';
+import 'package:gs/Features/Users/Game/MainWrapper/Empire/user_game_main_wrapper_empire_view.dart';
+import 'package:gs/Features/Users/Game/MainWrapper/Shop/user_game_main_wrapper_shop_view.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_viewmodel.dart';
-
 import '../../Registration/Gender/user_registration_gender_view.dart';
 import '../../Registration/UserName/user_registration_username_view.dart';
 import 'Mining/user_game_main_wrapper_mining_view.dart';
@@ -16,15 +17,14 @@ class UserGameMainWrapperView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.blueCode,
       body: GetBuilder<UserGameMainWrapperViewModel>(
           builder: (context) => PageView(
           onPageChanged: userGameMainWrapperViewModel.onPageChanged,
           controller: userGameMainWrapperViewModel.pageController,
           children: [
-            UserRegistrationUsernameView(),
+            const UserGameMainWrapperShopView(),
             UserGameMainWrapperMiningView(),
-            UserRegistrationGenderView(),
+            const UserGameMainWrapperEmpireView(),
 
           ],
         ),
