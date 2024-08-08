@@ -61,20 +61,47 @@ class UserRegistrationGenderView extends StatelessWidget {
                   bool isSelected =
                       genderController.selectedCharacter.value.isEmpty ||
                           usernameController.username.value.isEmpty;
-                  return AnimatedContainer(
-                    curve: Curves.easeInOutQuart,
-                    duration: const Duration(milliseconds: 300),
-                    width: isSelected ? AppLayout.buttonMinWidth * 0.45 : AppLayout.buttonMinWidth * 0.55,
-                    child: ButtonWidget(
-                      text: "NEXT",
-                      onPressed: () {
-                        if (!isSelected) {
-                          Get.to(UserGameMainWrapperView(), transition: Transition.noTransition);
-                        }
-                      },
-                      color: isSelected ? Colors.grey : Colors.orange,
-                    ),
-                  );
+                  return AnimatedCrossFade(
+                      firstChild: AnimatedContainer(
+                        curve: Curves.easeInOutQuart,
+                        duration: const Duration(milliseconds: 300),
+                        width: isSelected ? AppLayout.buttonMinWidth * 0.35 : AppLayout.buttonMinWidth * 0.45,
+                        child: ButtonWidget(
+                          widget: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Start",style: Get.textTheme.bodyLarge,),
+                              const Gap(3),
+                              const Icon(Icons.arrow_forward_ios_outlined,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          onPressed: () {
+                            if (!isSelected) {
+                              Navigator.pop(context);
+                              Get.to(UserGameMainWrapperView(), transition: Transition.noTransition);
+                            }
+                          },
+                          color: isSelected ? Colors.grey : Colors.orange,
+                        ),
+                      ),
+                      secondChild: AnimatedContainer(
+                        curve: Curves.easeInOutQuart,
+                        duration: const Duration(milliseconds: 300),
+                        width: isSelected ? AppLayout.buttonMinWidth * 0.35 : AppLayout.buttonMinWidth * 0.45,
+                        child: ButtonWidget(
+                          text: "Next",
+                          onPressed: () {},
+                          color: isSelected ? Colors.grey : Colors.orange,
+                        ),
+
+                      ),crossFadeState: isSelected ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                      duration: 200.ms,
+                    secondCurve: Curves.linear,
+                    firstCurve: Curves.linear,
+                    );
+
                 })
 
               ],

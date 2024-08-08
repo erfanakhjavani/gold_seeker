@@ -8,23 +8,25 @@ import '../Constants/app_colors.dart';
 
 //! Button Widget
 class ButtonWidget extends StatelessWidget {
-  final String text;
+  final String? text;
   final VoidCallback onPressed;
   final double? width;
   final double? height;
   final double? radius;
   final Color? color;
   final TextStyle? textStyle;
+  final Widget? widget;
 
 
   const ButtonWidget({super.key,
-    required this.text,
+     this.text,
     required this.onPressed,
     this.width,
     this.color,
     this.radius,
     this.height,
-    this.textStyle
+    this.textStyle,
+    this.widget
   });
 
   @override
@@ -39,7 +41,7 @@ class ButtonWidget extends StatelessWidget {
             backgroundColor: color ?? AppColors.primary
         ),
         onPressed: onPressed,
-        child: Text(text, style: textStyle ?? Get.textTheme.bodyLarge),
+        child: widget ?? Text(text ?? '', style: textStyle ?? Get.textTheme.bodyLarge),
       ),
     );
   }

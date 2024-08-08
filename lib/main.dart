@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:gs/Core/Constants/app_route.dart';
 import 'package:gs/Core/Theme/app_themes.dart';
 
+import 'Core/Bindings/bindings.dart';
+
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
@@ -17,6 +19,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  GetMaterialApp(
+      initialBinding: Binding(),
       debugShowCheckedModeBanner: false,
       title: 'Gold Seeker',
       theme: AppThemes.primary,
