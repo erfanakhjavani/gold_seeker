@@ -4,15 +4,17 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:gs/Core/Constants/app_colors.dart';
 import 'package:gs/Core/Gen/assets.gen.dart';
+import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_view.dart';
 import 'package:gs/Features/Users/Registration/Gender/user_registration_gender_viewmodel.dart';
 import '../../../../Core/Constants/app_layout.dart';
 import '../../../../Core/Widgets/button_widgets.dart';
-import '../UserName/user_registration_username_view.dart';
+import '../UserName/user_registration_username_viewmodel.dart';
 
 class UserRegistrationGenderView extends StatelessWidget {
   UserRegistrationGenderView({super.key});
 
   final UserRegistrationGenderViewModel genderController = Get.put(UserRegistrationGenderViewModel());
+  final UserRegistrationUsernameViewModel usernameController = Get.put(UserRegistrationUsernameViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +35,14 @@ class UserRegistrationGenderView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                 customAppBar(
-                   icon: Icons.arrow_back,
-                   color: Colors.black,
-                   backColor: Colors.transparent,
-                   text: 'Back'
-                 ),
+                customAppBar(
+                    icon: Icons.arrow_back,
+                    color: Colors.black,
+                    backColor: Colors.transparent,
+                    text: 'Back'
+                ),
                 Padding(
-
-                  padding: const EdgeInsets.only(right: 30.0,left: 30.0),
+                  padding: const EdgeInsets.only(right: 30.0, left: 30.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -50,8 +51,16 @@ class UserRegistrationGenderView extends StatelessWidget {
                     ],
                   ),
                 ),
+                TextFields(
+                  text: 'Username',
+                  controller: usernameController.usernameController,
+                  padding: AppLayout.primaryAllPadding * 4,
+                  hintStyle: Get.textTheme.bodyLarge,
+                ).animate().fadeIn(delay: 5.ms),
                 Obx(() {
-                  bool isSelected = genderController.selectedCharacter.value.isEmpty;
+                  bool isSelected =
+                      genderController.selectedCharacter.value.isEmpty ||
+                          usernameController.username.value.isEmpty;
                   return AnimatedContainer(
                     curve: Curves.easeInOutQuart,
                     duration: const Duration(milliseconds: 300),
@@ -60,13 +69,14 @@ class UserRegistrationGenderView extends StatelessWidget {
                       text: "NEXT",
                       onPressed: () {
                         if (!isSelected) {
-                          Get.to(UserRegistrationUsernameView(), transition: Transition.noTransition);
+                          Get.to(UserGameMainWrapperView(), transition: Transition.noTransition);
                         }
                       },
                       color: isSelected ? Colors.grey : Colors.orange,
                     ),
                   );
                 })
+
               ],
             ),
           ),
@@ -75,6 +85,7 @@ class UserRegistrationGenderView extends StatelessWidget {
     );
   }
 }
+
 
 //! Woman Character
 class WomanCharacter extends StatelessWidget {

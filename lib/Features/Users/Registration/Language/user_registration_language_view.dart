@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:gs/Core/Constants/app_layout.dart';
 import 'package:gs/Core/Gen/fonts.gen.dart';
 import 'package:gs/Core/Widgets/button_widgets.dart';
-import 'package:gs/Features/Users/Registration/Gender/user_registration_gender_view.dart';
+import 'package:gs/Features/Users/Registration/Gender/user_registration_gender_and_username_view.dart';
 import 'package:gs/Features/Users/Registration/Language/user_registration_language_viewmodel.dart';
-
 import '../../../../Core/Gen/assets.gen.dart';
 
 class UserRegistrationLanguageView extends StatelessWidget {

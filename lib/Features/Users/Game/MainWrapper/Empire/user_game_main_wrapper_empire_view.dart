@@ -1,15 +1,23 @@
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:gs/Core/Gen/assets.gen.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/Empire/user_game_main_wrapper_empire_viewmodel.dart';
+
+import '../../../../../Core/Widgets/button_widgets.dart';
+import '../Mining/user_game_main_wrapper_mining_view.dart';
+import '../Mining/user_game_main_wrapper_mining_viewmodel.dart';
 
 class UserGameMainWrapperEmpireView extends StatelessWidget {
   const UserGameMainWrapperEmpireView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Get.put(UserGameMainWrapperEmpireViewModel());
+
+
+    final UserGameMainWrapperMiningViewModel userGameMainWrapperViewModel =
+    Get.put(UserGameMainWrapperMiningViewModel());
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(1, 73, 111, 1.0),
@@ -28,6 +36,28 @@ class UserGameMainWrapperEmpireView extends StatelessWidget {
                   Color.fromRGBO(1, 73, 111, 1.0),
                 ],
               ),
+            ),
+            child: Column(
+              children: [
+                customAppBar(
+                  text: 'Mining',
+                  color: Colors.white,
+                  backColor: Colors.black,
+                  icon: Icons.arrow_downward,
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const FaIcon(FontAwesomeIcons.gear),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                firstOfRow(),
+                secondOfRow(userGameMainWrapperViewModel)
+              ],
             ),
           ),
           Expanded(
@@ -63,7 +93,7 @@ class SpinningWheelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Get.find<UserGameMainWrapperEmpireViewModel>();
+    final viewModel = Get.put(UserGameMainWrapperEmpireViewModel());
 
     return SingleChildScrollView(
       child: RotationTransition(
