@@ -1,16 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:get/get.dart';
-import 'package:gs/Features/Users/Registration/UserName/user_registration_username_model.dart';
+import 'package:flutter/material.dart';
+import 'user_registration_username_model.dart';
 
 class UserRegistrationUsernameViewModel extends GetxController {
   var username = ''.obs;
   UserRegistrationUsernameModel usernameModel = UserRegistrationUsernameModel();
 
+  late Box<UserRegistrationUsernameModel> usernameBox;
+
   TextEditingController usernameController = TextEditingController();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+
+    await Hive.openBox<UserRegistrationUsernameModel>('usernameBox');
+    usernameBox = Hive.box<UserRegistrationUsernameModel>('usernameBox');
+
+    if (usernameBox.isNotEmpty) {
+      username.value = usernameBox.getAt(0)?.userName ?? '';
+      usernameModel = usernameBox.getAt(0)!;
+      usernameController.text = usernameModel.userName ?? '';
+    }
+
     usernameController.addListener(() {
       username.value = usernameController.text;
     });
@@ -19,6 +32,7 @@ class UserRegistrationUsernameViewModel extends GetxController {
   @override
   void onClose() {
     usernameController.dispose();
+    usernameBox.close();
     super.onClose();
   }
 
@@ -27,7 +41,16 @@ class UserRegistrationUsernameViewModel extends GetxController {
   }
 
   String setUserName(String text) {
-    return usernameModel.userName = text;
+    usernameModel.userName = text;
+
+    // ذخیره نام کاربری در Hive
+    if (usernameBox.isEmpty) {
+      usernameBox.add(usernameModel);
+    } else {
+      usernameBox.putAt(0, usernameModel);
+    }
+
+    return usernameModel.userName!;
   }
 
   String getUserName() {

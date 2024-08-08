@@ -16,14 +16,13 @@ class UserGameMainWrapperView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<UserGameMainWrapperViewModel>(
-          builder: (context) => PageView(
+        builder: (context) => PageView(
           onPageChanged: userGameMainWrapperViewModel.onPageChanged,
           controller: userGameMainWrapperViewModel.pageController,
           children: [
             const UserGameMainWrapperShopView(),
             UserGameMainWrapperMiningView(),
-            const UserGameMainWrapperEmpireView(),
-
+             UserGameMainWrapperEmpireView(),
           ],
         ),
       ),
@@ -42,7 +41,7 @@ class UserGameMainWrapperView extends StatelessWidget {
           icon: Icons.shopping_cart,
           title: 'Shop',
         ),
-        TabItem(icon: Icons.monetization_on_outlined, title: 'Mining',),
+        TabItem(icon: Icons.monetization_on_outlined, title: 'Mining'),
         TabItem(icon: Icons.business, title: 'Empire'),
       ],
       controller: userGameMainWrapperViewModel.tabController,

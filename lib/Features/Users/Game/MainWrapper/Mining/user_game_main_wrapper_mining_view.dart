@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
-
 import 'package:get/get.dart';
 import 'package:gs/Core/Widgets/button_widgets.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/Mining/user_game_main_wrapper_mining_viewmodel.dart';
 import 'package:gs/Features/Users/Registration/UserName/user_registration_username_viewmodel.dart';
-
+import 'package:gs/Features/Users/Registration/Gender/user_registration_gender_viewmodel.dart';  // Import ViewModel
 import '../../../../../Core/Gen/assets.gen.dart';
 
 class UserGameMainWrapperMiningView extends StatelessWidget {
   UserGameMainWrapperMiningView({super.key});
 
   final UserGameMainWrapperMiningViewModel userGameMainWrapperViewModel =
-      Get.put(UserGameMainWrapperMiningViewModel());
+  Get.put(UserGameMainWrapperMiningViewModel());
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +78,11 @@ class UserGameMainWrapperMiningView extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Row(
                       children: [
                         Obx(
-                          () => GestureDetector(
+                              () => GestureDetector(
                             onTap: () {
                               userGameMainWrapperViewModel.addTwoHours();
                             },
@@ -90,7 +90,7 @@ class UserGameMainWrapperMiningView extends StatelessWidget {
                               image: Assets.png.craft.path,
                               primaryText: 'Energy',
                               secondText:
-                                  userGameMainWrapperViewModel.countdown.value,
+                              userGameMainWrapperViewModel.countdown.value,
                             ),
                           ),
                         ),
@@ -117,13 +117,13 @@ class UserGameMainWrapperMiningView extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 }
 
 Row firstOfRow() {
+  final UserRegistrationGenderViewModel genderViewModel =
+  Get.put(UserRegistrationGenderViewModel());
+  final UserRegistrationUsernameViewModel usernameViewModel =
+  Get.put(UserRegistrationUsernameViewModel());
   return Row(
     children: [
       Padding(
@@ -146,7 +146,8 @@ Row firstOfRow() {
                   color: Color.fromRGBO(243, 195, 39, 1.0),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 6, top: 9, left: 42.0),
+                  padding: const EdgeInsets.only(
+                      bottom: 6, top: 9, left: 42.0),
                   child: Assets.png.iconUp.image(),
                 ),
               ),
@@ -176,19 +177,40 @@ Row firstOfRow() {
       ),
       Padding(
         padding: const EdgeInsets.only(left: 10.0),
-        child: Text(
-          Get.find<UserRegistrationUsernameViewModel>().getUserName(),
-          style: Get.textTheme.bodyLarge?.copyWith(
-            fontSize: 15,
-            letterSpacing: 1,
-          ),
+        child: Obx(
+              () =>
+              Text(
+                usernameViewModel.getUserName(),
+                // استفاده از ویو مدل نام کاربری
+                style: Get.textTheme.bodyLarge?.copyWith(
+                  fontSize: 15,
+                  letterSpacing: 1,
+                ),
+              ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Obx(
+              () =>
+              Text(
+                genderViewModel.selectedCharacter.value.isEmpty
+                    ? 'Gender not set'
+                    : genderViewModel.selectedCharacter.value,
+                // استفاده از ویو مدل جنسیت
+                style: Get.textTheme.bodyLarge?.copyWith(
+                  fontSize: 15,
+                  letterSpacing: 1,
+                ),
+              ),
         ),
       ),
     ],
   );
 }
 
-Row secondOfRow(UserGameMainWrapperMiningViewModel userGameMainWrapperViewModel) {
+Row secondOfRow(
+    UserGameMainWrapperMiningViewModel userGameMainWrapperViewModel) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -204,44 +226,49 @@ Row secondOfRow(UserGameMainWrapperMiningViewModel userGameMainWrapperViewModel)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Obx(
-                      () => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Power',
-                        style: Get.textTheme.bodySmall?.copyWith(
-                            color: const Color.fromRGBO(183, 226, 171, 1.0)),
-                      ),
-                      Wrap(
+                      () =>
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${userGameMainWrapperViewModel.power.value}/',
+                            'Power',
                             style: Get.textTheme.bodySmall?.copyWith(
-                                letterSpacing: 1,
-                                color:
-                                const Color.fromRGBO(183, 226, 171, 1.0)),
+                                color: const Color.fromRGBO(
+                                    183, 226, 171, 1.0)),
                           ),
-                          Text(
-                            '100',
-                            style: Get.textTheme.bodySmall?.copyWith(
-                                letterSpacing: 1,
-                                color:
-                                const Color.fromRGBO(20, 225, 37, 1.0)),
+                          Wrap(
+                            children: [
+                              Text(
+                                '${userGameMainWrapperViewModel.power
+                                    .value}/',
+                                style: Get.textTheme.bodySmall?.copyWith(
+                                    letterSpacing: 1,
+                                    color: const Color.fromRGBO(
+                                        183, 226, 171, 1.0)),
+                              ),
+                              Text(
+                                '100',
+                                style: Get.textTheme.bodySmall?.copyWith(
+                                    letterSpacing: 1,
+                                    color: const Color.fromRGBO(
+                                        20, 225, 37, 1.0)),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
                 ),
               ),
               Obx(
-                    () => LinearProgressIndicator(
-                  backgroundColor: const Color.fromRGBO(119, 124, 68, 1.0),
-                  value: userGameMainWrapperViewModel.power.value / 100,
-                  minHeight: 2,
-                  color: const Color.fromRGBO(20, 225, 37, 1.0),
-                  borderRadius: BorderRadius.circular(5),
-                ),
+                    () =>
+                    LinearProgressIndicator(
+                      backgroundColor: const Color.fromRGBO(
+                          119, 124, 68, 1.0),
+                      value: userGameMainWrapperViewModel.power.value / 100,
+                      minHeight: 2,
+                      color: const Color.fromRGBO(20, 225, 37, 1.0),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
               ),
             ],
           ),
@@ -327,9 +354,9 @@ class MiniContainer extends StatelessWidget {
 
   const MiniContainer(
       {super.key,
-      required this.image,
-      required this.primaryText,
-      this.secondText});
+        required this.image,
+        required this.primaryText,
+        this.secondText});
 
   @override
   Widget build(BuildContext context) {
@@ -360,12 +387,12 @@ class MiniContainer extends StatelessWidget {
             ),
             isSecond
                 ? Padding(
-                    padding: const EdgeInsets.only(top: 80),
-                    child: Text(
-                      secondText ?? '',
-                      style: Get.textTheme.labelMedium,
-                    ),
-                  )
+              padding: const EdgeInsets.only(top: 80),
+              child: Text(
+                secondText ?? '',
+                style: Get.textTheme.labelMedium,
+              ),
+            )
                 : const SizedBox.shrink(),
           ],
         ),

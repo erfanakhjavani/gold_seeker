@@ -6,6 +6,7 @@ import 'package:gs/Core/Constants/app_colors.dart';
 import 'package:gs/Core/Gen/assets.gen.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_view.dart';
 import 'package:gs/Features/Users/Registration/Gender/user_registration_gender_viewmodel.dart';
+import 'package:hive/hive.dart';
 import '../../../../Core/Constants/app_layout.dart';
 import '../../../../Core/Widgets/button_widgets.dart';
 import '../UserName/user_registration_username_viewmodel.dart';
@@ -62,45 +63,49 @@ class UserRegistrationGenderView extends StatelessWidget {
                       genderController.selectedCharacter.value.isEmpty ||
                           usernameController.username.value.isEmpty;
                   return AnimatedCrossFade(
-                      firstChild: AnimatedContainer(
-                        curve: Curves.easeInOutQuart,
-                        duration: const Duration(milliseconds: 300),
-                        width: isSelected ? AppLayout.buttonMinWidth * 0.35 : AppLayout.buttonMinWidth * 0.45,
-                        child: ButtonWidget(
-                          widget: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Start",style: Get.textTheme.bodyLarge,),
-                              const Gap(3),
-                              const Icon(Icons.arrow_forward_ios_outlined,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
-                          onPressed: () {
-                            if (!isSelected) {
-                              Navigator.pop(context);
-                              Get.to(UserGameMainWrapperView(), transition: Transition.noTransition);
-                            }
-                          },
-                          color: isSelected ? Colors.grey : Colors.orange,
+                    firstChild: AnimatedContainer(
+                      curve: Curves.easeInOutQuart,
+                      duration: const Duration(milliseconds: 300),
+                      width: isSelected ? AppLayout.buttonMinWidth * 0.35 : AppLayout.buttonMinWidth * 0.45,
+                      child: ButtonWidget(
+                        widget: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Start",style: Get.textTheme.bodyLarge,),
+                            const Gap(3),
+                            const Icon(Icons.arrow_forward_ios_outlined,
+                              color: Colors.white,
+                            )
+                          ],
                         ),
-                      ),
-                      secondChild: AnimatedContainer(
-                        curve: Curves.easeInOutQuart,
-                        duration: const Duration(milliseconds: 300),
-                        width: isSelected ? AppLayout.buttonMinWidth * 0.35 : AppLayout.buttonMinWidth * 0.45,
-                        child: ButtonWidget(
-                          text: "Next",
-                          onPressed: () {},
-                          color: isSelected ? Colors.grey : Colors.orange,
-                        ),
+                        onPressed: () async{
+                          if (!isSelected) {
 
-                      ),crossFadeState: isSelected ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                      duration: 200.ms,
+                            genderController.selectCharacter(genderController.selectedCharacter.value);
+                            usernameController.setUserName(usernameController.username.value);
+                            var box = await Hive.openBox('userBox');
+                            box.put('isRegistered', true);
+                            Get.to(UserGameMainWrapperView(), transition: Transition.noTransition);
+                          }
+                        },
+                        color: isSelected ? Colors.grey : Colors.orange,
+                      ),
+                    ),
+                    secondChild: AnimatedContainer(
+                      curve: Curves.easeInOutQuart,
+                      duration: const Duration(milliseconds: 300),
+                      width: isSelected ? AppLayout.buttonMinWidth * 0.35 : AppLayout.buttonMinWidth * 0.45,
+                      child: ButtonWidget(
+                        text: "Next",
+                        onPressed: () {},
+                        color: isSelected ? Colors.grey : Colors.orange,
+                      ),
+
+                    ),crossFadeState: isSelected ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                    duration: 200.ms,
                     secondCurve: Curves.linear,
                     firstCurve: Curves.linear,
-                    );
+                  );
 
                 })
 
@@ -112,6 +117,7 @@ class UserRegistrationGenderView extends StatelessWidget {
     );
   }
 }
+
 
 
 //! Woman Character

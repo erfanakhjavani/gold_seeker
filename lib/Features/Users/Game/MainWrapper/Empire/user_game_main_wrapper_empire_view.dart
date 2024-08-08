@@ -10,15 +10,15 @@ import '../Mining/user_game_main_wrapper_mining_view.dart';
 import '../Mining/user_game_main_wrapper_mining_viewmodel.dart';
 
 class UserGameMainWrapperEmpireView extends StatelessWidget {
-  const UserGameMainWrapperEmpireView({super.key});
+   UserGameMainWrapperEmpireView({super.key});
+
+  final UserGameMainWrapperMiningViewModel userGameMainWrapperViewModel =
+  Get.put(UserGameMainWrapperMiningViewModel());
+
+
 
   @override
   Widget build(BuildContext context) {
-
-
-    final UserGameMainWrapperMiningViewModel userGameMainWrapperViewModel =
-    Get.put(UserGameMainWrapperMiningViewModel());
-
     return Scaffold(
       backgroundColor: const Color.fromRGBO(1, 73, 111, 1.0),
       body: Column(
@@ -40,7 +40,7 @@ class UserGameMainWrapperEmpireView extends StatelessWidget {
             child: Column(
               children: [
                 customAppBar(
-                  text: 'Mining',
+                  text: 'Empire',
                   color: Colors.white,
                   backColor: Colors.black,
                   icon: Icons.arrow_downward,
@@ -53,6 +53,7 @@ class UserGameMainWrapperEmpireView extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
+
                   ],
                 ),
                 firstOfRow(),
@@ -83,10 +84,11 @@ class UserGameMainWrapperEmpireView extends StatelessWidget {
             ),
           ),
         ],
-      )
+      ),
     );
   }
 }
+
 
 class SpinningWheelWidget extends StatelessWidget {
   const SpinningWheelWidget({super.key});
