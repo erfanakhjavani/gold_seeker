@@ -7,7 +7,7 @@ class UserGameMainWrapperMiningViewModel extends GetxController {
   late Timer _timer;
   late Duration _duration;
   final Duration _maxDuration = const Duration(hours: 24);
-  var power = 88.obs;
+
 
 
   @override
@@ -46,9 +46,6 @@ class UserGameMainWrapperMiningViewModel extends GetxController {
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
-  void updatePower(int newValue) {
-    power.value = newValue;
-  }
 
   @override
   void onClose() {

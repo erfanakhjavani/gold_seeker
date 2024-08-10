@@ -40,7 +40,8 @@ class UserRegistrationGenderView extends StatelessWidget {
                     icon: Icons.arrow_back,
                     color: Colors.black,
                     backColor: Colors.transparent,
-                    text: 'Back'
+                    text: 'Back',
+
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 30.0, left: 30.0),

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../Constants/app_colors.dart';
 
@@ -166,30 +164,30 @@ AppBar customAppBar({
 }) {
   return AppBar(
 
-    elevation: 0,
-    automaticallyImplyLeading: false,
+      elevation: 0,
+      automaticallyImplyLeading: false,
 
-    flexibleSpace: FlexibleSpaceBar.createSettings(currentExtent: 1,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 5.0,top: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(onPressed: () {},
+      flexibleSpace: FlexibleSpaceBar.createSettings(currentExtent: 1,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5.0,top: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(onPressed: () {},
 
-              icon:  Icon(
-                icon ?? Icons.arrow_back, color: color ?? Colors.white,),
-            ),
-            Text(
-              text ?? 'Back',
-              style: Get.textTheme.bodyLarge?.copyWith(
-                  color: color ?? Colors.black),
-            ),
-          ],
-        ),
-      ),),
-    backgroundColor: backColor ?? AppColors.primary,
+                icon:  Icon(
+                  icon ?? Icons.arrow_back, color: color ?? Colors.white,),
+              ),
+              Text(
+                text ?? 'Back',
+                style: Get.textTheme.bodyLarge?.copyWith(
+                    color: color ?? Colors.black),
+              ),
+            ],
+          ),
+        ),),
+      backgroundColor: backColor ?? AppColors.primary,
 
-    actions: actions
+      actions: actions
   );
 }
