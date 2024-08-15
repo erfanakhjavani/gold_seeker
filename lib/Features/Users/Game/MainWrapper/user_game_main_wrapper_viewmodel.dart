@@ -10,7 +10,7 @@ class UserGameMainWrapperViewModel extends GetxController with GetTickerProvider
   var selectedIndex = 1.obs;
   var power = 88.obs;
   var backgroundColor = const Color.fromRGBO(67, 155, 171, 1.0).obs;
-  var avatarColor =  const Color.fromRGBO(67, 155, 171, 1.0).obs;
+  var avatarColor =   const Color.fromRGBO(243, 195, 39, 1.0).obs;
   PageController pageController = PageController(initialPage: 1);
 
   @override
@@ -48,16 +48,17 @@ class UserGameMainWrapperViewModel extends GetxController with GetTickerProvider
       case 0:
         backgroundColor.value = const Color.fromRGBO(87, 0, 169, 1.0);
         title.value = 'Shop';
+        avatarColor.value = const Color.fromRGBO(151, 39, 243, 1.0);
         break;
       case 1:
         backgroundColor.value = const Color.fromRGBO(67, 155, 171, 1.0);
         title.value = 'Mining';
-        avatarColor.value =  const Color.fromRGBO(67, 155, 171, 1.0);
+        avatarColor.value = const Color.fromRGBO(243, 195, 39, 1.0);
         break;
       case 2:
         backgroundColor.value =  const Color.fromRGBO(1, 73, 111, 1.0);
         title.value = 'Empire';
-        avatarColor.value = const Color.fromRGBO(243, 195, 39, 1.0);
+        avatarColor.value =  const Color.fromRGBO(67, 155, 171, 1.0);
         break;
     }
     update();

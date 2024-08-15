@@ -1,27 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:gs/Core/Gen/assets.gen.dart';
+import 'package:gs/Features/Users/Game/MainWrapper/Empire/user_game_main_wrapper_empire_model.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/Empire/user_game_main_wrapper_empire_viewmodel.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_viewmodel.dart';
-
 import '../../../Registration/UserName/user_registration_username_viewmodel.dart';
 
 class UserGameMainWrapperEmpireView
     extends GetView<UserGameMainWrapperEmpireViewModel> {
   UserGameMainWrapperEmpireView({super.key});
 
-  final UserGameMainWrapperViewModel userGameMainWrapperViewModel =
-      Get.put(UserGameMainWrapperViewModel());
+
   final UserRegistrationUsernameViewModel usernameViewModel =
       Get.put(UserRegistrationUsernameViewModel());
+
+
+
+  List<UserGameMainWrapperEmpireModel> userModel = [
+    UserGameMainWrapperEmpireModel(
+      imageLevel: Assets.jpg.background.provider(),
+      name: 'Maryam',
+      genderAvatar: Assets.webp.woman.provider(),
+      color: Colors.orange,
+      power: 90,
+      isLocked: false, // Locked
+    ),
+    UserGameMainWrapperEmpireModel(
+      imageLevel: Assets.jpg.backgroundGame.provider(),
+      name: 'Morteza',
+      genderAvatar: Assets.webp.man.provider(),
+      color: Colors.blueAccent,
+      power: 50,
+      isLocked: false, // Locked
+    ),
+    UserGameMainWrapperEmpireModel(
+      imageLevel: Assets.jpg.backSky.provider(),
+      name: 'Ali',
+      genderAvatar: Assets.png.hatter.provider(),
+      color: Colors.black87,
+      power: 12,
+      isLocked: true, // Not locked
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: userGameMainWrapperViewModel.backgroundColor.value,
+      backgroundColor: Get.find<UserGameMainWrapperViewModel>().backgroundColor.value,
       body: Container(
         width: Get.width,
         height: Get.height,
@@ -42,86 +69,132 @@ class UserGameMainWrapperEmpireView
               padding: const EdgeInsets.only(top: 30.0),
               child: ListView.builder(
                   padding: const EdgeInsets.all(20),
-                  itemCount: 10,
+                  itemCount: userModel.length,
                   itemBuilder: (context, index) {
-                    return Column(children: [
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        width: Get.width * .9,
-                        height: Get.height / 8,
-                        decoration: BoxDecoration(
+                    controller.updatePower(userModel[index].power);
+                    return Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          width: Get.width * .9,
+                          height: Get.height / 8,
+                          decoration: BoxDecoration(
                             color: const Color.fromRGBO(
                                 194, 194, 194, 0.6705882352941176),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(children: [
-                          firstOfRow(
-                              userRegistration: usernameViewModel,
-                              color: Colors.blueAccent
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          secondOfRow(userGameMainWrapperViewModel: userGameMainWrapperViewModel)
-                        ]),
-                      ),
-                      const Gap(10)
-                    ]);
-                  }),
+                          child: Stack(
+                            children: [
+                              // محتوای اصلی آیتم (با شفافیت کم اگر قفل باشد)
+                              Opacity(
+                                opacity: userModel[index].isLocked ? 0.6 : 1.0,
+                                child: Stack(
+                                  children: [
+                                    firstOfRow(index: index),
+                                    secondOfRow(index: index),
+                                  ],
+                                ),
+                              ),
+                              if (userModel[index].isLocked)
+                                Column(
+                                  children: [
+                                    const Center(
+                                      child: Icon(Icons.lock, color: Colors.black54, size: 50),
+                                    ),
+                                    Text('Lock',style: Get.textTheme.bodySmall?.copyWith(color: Colors.black87),)
+                                  ],
+                                ),
+
+                            ],
+                          ),
+                        ),
+                        const Gap(10),
+                      ],
+                    );
+                  }).animate().fadeIn(),
             )
           ],
         ),
       ).animate().fadeIn(),
     ).animate();
   }
-  Row firstOfRow({required UserRegistrationUsernameViewModel userRegistration,
-    required Color color
+  Widget firstOfRow({
+
+    required int index
   }) {
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
+        Container(
+          width: 90,
+          height: 80,
+          decoration:   BoxDecoration(
+            image: DecorationImage(image: userModel[index].imageLevel,
+                fit: BoxFit.cover),
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(109),
+              bottomRight: Radius.circular(134),
+              topLeft: Radius.circular(170),
+              topRight: Radius.circular(170),
+            ),
+            shape: BoxShape.rectangle,
+          ),
+        ),
+        //! Avatar
+        userModel[index].isLocked ?
+        const SizedBox.shrink()
+        : Padding(
           padding: const EdgeInsets.only(top: 2, left: 18),
           child: SizedBox(
             width: Get.width / 4,
             height: 50,
-            child: Stack(
-              children: [
-                Container(
-                  width: Get.width / 4.2,
-                  height: Get.height / 20,
-                  decoration:  BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
+            child: SizedBox(
+              width: 10,
+              child: Stack(
+                children: [
+                  Container(
+                    width: Get.width / 6,
+                    height: Get.height / 25,
+                    decoration:  BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                      color: userModel[index].color,
                     ),
-                    color: color,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 6, top: 9, left: 42.0),
-                    child: Assets.png.iconUp.image(),
-                  ),
-                ),
-                Container(
-                  width: Get.width / 8.5,
-                  height: Get.height / 20,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 3,
-                      color: Colors.black,
-                    ),
-                    image: DecorationImage(image: Assets.png.girl.provider()),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      topRight: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 6, top: 9, left: 30.0),
+                      child: Assets.png.iconUp.image(),
                     ),
                   ),
+                  Container(
+                    width: Get.width / 11.5,
+                    height: Get.height / 25,
+                    decoration: BoxDecoration(
 
-                ),
-              ],
+                      image: DecorationImage(image: userModel[index].genderAvatar),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        topRight: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
+                    ),
+
+                  ),
+                ],
+              ),
             ),
+          ),
+        ),
+        //! UserName
+        userModel[index].isLocked ?
+        const SizedBox.shrink()
+            : Text(
+          userModel[index].name,
+          style: Get.textTheme.bodyLarge?.copyWith(
+            fontSize: 12,
+            letterSpacing: 1,
+            color: Colors.black87
           ),
         ),
 
@@ -129,70 +202,63 @@ class UserGameMainWrapperEmpireView
     );
   }
 
-  Row secondOfRow({
-    required UserGameMainWrapperViewModel userGameMainWrapperViewModel
+  Widget secondOfRow({
+    required int index
   }) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 40,
-          width: Get.width / 3,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 15.0),
-                child: Obx(
-                      () =>
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Power',
-                            style: Get.textTheme.bodySmall?.copyWith(
-                                color: const Color.fromRGBO(
-                                    183, 226, 171, 1.0)),
-                          ),
-                          Wrap(
-                            children: [
-                              Text(
-                                '${userGameMainWrapperViewModel.power
-                                    .value}/',
-                                style: Get.textTheme.bodySmall?.copyWith(
-                                    letterSpacing: 1,
-                                    color: const Color.fromRGBO(
-                                        183, 226, 171, 1.0)),
-                              ),
-                              Text(
-                                '100',
-                                style: Get.textTheme.bodySmall?.copyWith(
-                                    letterSpacing: 1,
-                                    color: const Color.fromRGBO(
-                                        20, 225, 37, 1.0)),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                ),
-              ),
-              Obx(
-                    () =>
-                    LinearProgressIndicator(
-                      backgroundColor: const Color.fromRGBO(
-                          119, 124, 68, 1.0),
-                      value: userGameMainWrapperViewModel.power.value / 100,
-                      minHeight: 2,
-                      color: const Color.fromRGBO(20, 225, 37, 1.0),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-              ),
-            ],
-          ),
-        ),
+    return userModel[index].isLocked ?
+    const SizedBox.shrink()
+        : Padding(
+      padding: const EdgeInsets.only(top: 55.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: Get.width / 5,
 
-      ],
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 1.0),
+                  child:
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Power',
+                              style: Get.textTheme.labelSmall?.copyWith(
+                                  color: const Color.fromRGBO(
+                                      28, 28, 28, 1.0)),
+                            ),
+                            Text(
+                              '${userModel[index].power}/',
+                              style: Get.textTheme.labelSmall?.copyWith(
+                                  color: const Color.fromRGBO(
+                                      253, 253, 253, 1.0)),
+                            ),
+                            Text(
+                              '100',
+                              style: Get.textTheme.labelSmall?.copyWith(
+                                  color: const Color.fromRGBO(
+                                      0, 0, 0, 1.0)),
+                            ),
+                          ],
+                        ),
+                  ),
+                LinearProgressIndicator(
+                        backgroundColor: const Color.fromRGBO(
+                            119, 124, 68, 1.0),
+                        value: controller.power.value / 100,
+                        minHeight: 5,
+                        color: const Color.fromRGBO(20, 163, 225, 1.0),
+                        borderRadius: BorderRadius.circular(5),
+                      )
+
+              ],
+            ),
+          ),
+
+        ],
+      ),
     );
   }
 
@@ -212,6 +278,7 @@ class SpinningWheelWidget extends StatelessWidget {
           child: Assets.png.erth.image(width: Get.width, height: 500)),
     );
   }
+
 
 
 }

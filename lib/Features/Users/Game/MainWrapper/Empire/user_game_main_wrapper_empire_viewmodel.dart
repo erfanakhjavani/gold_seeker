@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class UserGameMainWrapperEmpireViewModel extends GetxController with GetTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
+  var power = 88.obs;
 
   @override
   void onInit() {
@@ -19,6 +20,11 @@ class UserGameMainWrapperEmpireViewModel extends GetxController with GetTickerPr
         curve: Curves.linear,
       ),
     );
+  }
+
+  void updatePower(int newValue) {
+    power.value = newValue;
+    update();
   }
 
   @override

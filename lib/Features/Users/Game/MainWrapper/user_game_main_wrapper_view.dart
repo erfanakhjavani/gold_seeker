@@ -22,13 +22,15 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
   Widget build(BuildContext context) {
     return Obx(
             ()=> Scaffold(
-
+              backgroundColor: controller.backgroundColor.value,
       body: Column(
         children: [
           Container(
+
             width: Get.width,
             height: Get.height / 4.3,
             decoration:  BoxDecoration(
+
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -38,6 +40,7 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
                   controller.backgroundColor.value,
                 ],
               ),
+
             ),
             child: Column(
               children: [
