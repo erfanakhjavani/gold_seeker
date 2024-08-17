@@ -42,7 +42,28 @@ class UserGameMainWrapperEmpireView
       color: Colors.black87,
       power: 12,
       isLocked: true, // Not locked
-    )
+    ),UserGameMainWrapperEmpireModel(
+      imageLevel: Assets.jpg.backSky.provider(),
+      name: 'Ali',
+      genderAvatar: Assets.png.hatter.provider(),
+      color: Colors.black87,
+      power: 12,
+      isLocked: false, // Not locked
+    ),UserGameMainWrapperEmpireModel(
+      imageLevel: Assets.jpg.backSky.provider(),
+      name: 'amir',
+      genderAvatar: Assets.png.hatter.provider(),
+      color: Colors.black87,
+      power: 12,
+      isLocked: false, // Not locked
+    ),UserGameMainWrapperEmpireModel(
+      imageLevel: Assets.jpg.backgroundGame.provider(),
+      name: 'Ali',
+      genderAvatar: Assets.png.hatter.provider(),
+      color: Colors.black87,
+      power: 12,
+      isLocked: true, // Not locked
+    ),
   ];
 
   @override
@@ -246,10 +267,10 @@ class UserGameMainWrapperEmpireView
                   ),
                 LinearProgressIndicator(
                         backgroundColor: const Color.fromRGBO(
-                            119, 124, 68, 1.0),
+                            68, 109, 124, 1.0),
                         value: controller.power.value / 100,
                         minHeight: 5,
-                        color: const Color.fromRGBO(20, 163, 225, 1.0),
+                        color: const Color.fromRGBO(20, 225, 61, 1.0),
                         borderRadius: BorderRadius.circular(5),
                       )
 

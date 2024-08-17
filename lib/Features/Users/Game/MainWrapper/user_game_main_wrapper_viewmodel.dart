@@ -7,16 +7,16 @@ import 'package:get/get.dart';
 class UserGameMainWrapperViewModel extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
   RxString title = ''.obs;
-  var selectedIndex = 1.obs;
-  var power = 88.obs;
+  RxInt selectedIndex = 0.obs;
+  RxInt power = 88.obs;
   var backgroundColor = const Color.fromRGBO(67, 155, 171, 1.0).obs;
   var avatarColor =   const Color.fromRGBO(243, 195, 39, 1.0).obs;
-  PageController pageController = PageController(initialPage: 1);
+  PageController pageController = PageController(initialPage: -1);
 
   @override
   void onInit() {
     tabController = TabController(
-      length: 3,
+      length: 4,
       vsync: this,
       initialIndex: 1,
       animationDuration: const Duration(milliseconds: 300),
@@ -46,20 +46,26 @@ class UserGameMainWrapperViewModel extends GetxController with GetTickerProvider
   void updateBackgroundColor(int index) {
     switch (index) {
       case 0:
-        backgroundColor.value = const Color.fromRGBO(87, 0, 169, 1.0);
-        title.value = 'Shop';
-        avatarColor.value = const Color.fromRGBO(151, 39, 243, 1.0);
+        title.value = 'G-miner';
+        backgroundColor.value = const Color.fromRGBO(67, 155, 171, 1.0);
+        avatarColor.value = const Color.fromRGBO(243, 195, 39, 1.0);
+
         break;
       case 1:
-        backgroundColor.value = const Color.fromRGBO(67, 155, 171, 1.0);
-        title.value = 'Mining';
-        avatarColor.value = const Color.fromRGBO(243, 195, 39, 1.0);
-        break;
-      case 2:
-        backgroundColor.value =  const Color.fromRGBO(1, 73, 111, 1.0);
         title.value = 'Empire';
+        backgroundColor.value =  const Color.fromRGBO(1, 73, 111, 1.0);
         avatarColor.value =  const Color.fromRGBO(67, 155, 171, 1.0);
         break;
+      case 2:
+        title.value = 'Shop';
+        backgroundColor.value = const Color.fromRGBO(60, 1, 132, 1.0);
+        avatarColor.value = const Color.fromRGBO(243, 39, 233, 1.0);
+
+        break;
+        case 3:
+          backgroundColor.value = const Color.fromRGBO(169, 0, 0, 1.0);
+          avatarColor.value = const Color.fromRGBO(166, 0, 44, 1.0);
+          break;
     }
     update();
   }

@@ -172,15 +172,18 @@ AppBar customAppBar({
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(onPressed: () {},
+              icon != null ? IconButton(onPressed: () {},
 
                 icon:  Icon(
-                  icon ?? Icons.arrow_back, color: color ?? Colors.white,),
-              ),
-              Text(
-                text ?? 'Back',
-                style: Get.textTheme.bodyLarge?.copyWith(
-                    color: color ?? Colors.black),
+                  icon),
+              ) : const SizedBox(),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0,top: 5),
+                child: Text(
+                  text!,
+                  style: Get.textTheme.bodyLarge?.copyWith(
+                      color: color ?? Colors.black),
+                ),
               ),
             ],
           ),
