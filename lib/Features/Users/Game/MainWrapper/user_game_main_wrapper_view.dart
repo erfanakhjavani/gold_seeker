@@ -43,10 +43,10 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
                 child: Column(
                   children: [
                     customAppBar(
-                      text: controller.selectedIndex.value == 3
-                          ? usernameViewModel.username.value : controller.title.value,
+                      text: controller.selectedIndex.value != 3
+                          ?controller.title.value  :usernameViewModel.username.value,
                       color: Colors.white,
-                      actions: [
+                      actions:controller.selectedIndex.value == 3 ? [] : [
                         Padding(
                           padding: const EdgeInsets.only(top: 15.0),
                           child: IconButton(
@@ -58,9 +58,11 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
                       ],
                     ),
                     firstOfRow(
+                      image: controller.avatar.value,
                         userRegistration: usernameViewModel,
                         color: controller.avatarColor.value,
-                        index: controller.selectedIndex.value),
+                        index: controller.selectedIndex.value
+                    ),
                     secondOfRow(
                         userGameMainWrapperViewModel: controller,
                         index: controller.selectedIndex.value)
@@ -110,6 +112,7 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
   Row firstOfRow(
       {required UserRegistrationUsernameViewModel userRegistration,
       required Color color,
+        required ImageProvider image,
       required int index}) {
     return Row(
       children: [
@@ -146,7 +149,7 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
                       width: 3,
                       color: Colors.black,
                     ),
-                    image: DecorationImage(image: Assets.png.girl.provider()),
+                    image: DecorationImage(image: image),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10),
@@ -161,7 +164,7 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
         ),
         Expanded(
           child: Obx(() {
-            if (index == 0) {
+            if (index != 3) {
               return Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
@@ -174,7 +177,7 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
                 ),
               ).animate().fadeIn();
             } else if (index == 3) {
-              return firstOfColumnProfile(followers: 50, friends: 10, miner: 4);
+              return firstOfRowProfile(followers: 50, friends: 10, miner: 4);
             }
             return const SizedBox.shrink();
           }),
@@ -183,138 +186,143 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
     );
   }
 
-  Row secondOfRow(
+  Widget secondOfRow(
       {required UserGameMainWrapperViewModel userGameMainWrapperViewModel,
       required int index}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, top: 10),
-          child: SizedBox(
-            height: 50,
-            width: Get.width / 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Power',
-                          style: Get.textTheme.bodySmall?.copyWith(
-                              color: const Color.fromRGBO(183, 226, 171, 1.0)),
-                        ),
-                        Wrap(
-                          children: [
-                            Text(
-                              '${userGameMainWrapperViewModel.power.value}/',
-                              style: Get.textTheme.bodySmall?.copyWith(
-                                  letterSpacing: 1,
-                                  color:
-                                      const Color.fromRGBO(183, 226, 171, 1.0)),
-                            ),
-                            Text(
-                              '100',
-                              style: Get.textTheme.bodySmall?.copyWith(
-                                  letterSpacing: 1,
-                                  color:
-                                      const Color.fromRGBO(20, 225, 37, 1.0)),
-                            ),
-                          ],
-                        ),
-                      ],
+    if(index != 3) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, top: 10),
+            child: SizedBox(
+              height: 50,
+              width: Get.width / 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Obx(
+                          () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Power',
+                            style: Get.textTheme.bodySmall?.copyWith(
+                                color: const Color.fromRGBO(183, 226, 171, 1.0)),
+                          ),
+                          Wrap(
+                            children: [
+                              Text(
+                                '${userGameMainWrapperViewModel.power.value}/',
+                                style: Get.textTheme.bodySmall?.copyWith(
+                                    letterSpacing: 1,
+                                    color:
+                                    const Color.fromRGBO(183, 226, 171, 1.0)),
+                              ),
+                              Text(
+                                '100',
+                                style: Get.textTheme.bodySmall?.copyWith(
+                                    letterSpacing: 1,
+                                    color:
+                                    const Color.fromRGBO(20, 225, 37, 1.0)),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                //* power linearIndicator exmp: 24/100
-                Obx(
-                  () => LinearProgressIndicator(
-                    backgroundColor: const Color.fromRGBO(119, 124, 68, 1.0),
-                    value: userGameMainWrapperViewModel.power.value / 100,
-                    minHeight: 2,
-                    color: const Color.fromRGBO(20, 225, 37, 1.0),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0, top: 20),
-          child: Container(
-            width: Get.width / 2.2,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color.fromRGBO(67, 155, 171, 0.2),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Gap(5),
-                const FaIcon(
-                  FontAwesomeIcons.dollarSign,
-                  size: 20,
-                  color: Color.fromRGBO(244, 186, 43, 1.0),
-                ),
-                const Gap(5),
-                const VerticalDivider(
-                  color: Colors.grey,
-                  indent: 8,
-                  endIndent: 8,
-                ),
-                const Gap(5),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Profit',
-                      style: Get.textTheme.labelLarge?.copyWith(
-                          color: Colors.grey,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12),
+                  //* power linearIndicator exmp: 24/100
+                  Obx(
+                        () => LinearProgressIndicator(
+                      backgroundColor: const Color.fromRGBO(119, 124, 68, 1.0),
+                      value: userGameMainWrapperViewModel.power.value / 100,
+                      minHeight: 2,
+                      color: const Color.fromRGBO(20, 225, 37, 1.0),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    Row(
-                      children: [
-                        const FaIcon(
-                          FontAwesomeIcons.coins,
-                          color: Color.fromRGBO(190, 150, 28, 1.0),
-                          size: 10,
-                        ),
-                        Text(
-                          ' + 1800/ h',
-                          style: Get.textTheme.labelSmall,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                const VerticalDivider(
-                  color: Colors.grey,
-                  indent: 8,
-                  endIndent: 8,
-                ),
-                const Gap(5),
-                const FaIcon(
-                  FontAwesomeIcons.gears,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                const Gap(5),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
-        )
-      ],
-    );
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0, top: 20),
+            child: Container(
+              width: Get.width / 2.2,
+              height: 40,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(67, 155, 171, 0.2),
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Gap(5),
+                  const FaIcon(
+                    FontAwesomeIcons.dollarSign,
+                    size: 20,
+                    color: Color.fromRGBO(244, 186, 43, 1.0),
+                  ),
+                  const Gap(5),
+                  const VerticalDivider(
+                    color: Colors.grey,
+                    indent: 8,
+                    endIndent: 8,
+                  ),
+                  const Gap(5),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Profit',
+                        style: Get.textTheme.labelLarge?.copyWith(
+                            color: Colors.grey,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12),
+                      ),
+                      Row(
+                        children: [
+                          const FaIcon(
+                            FontAwesomeIcons.coins,
+                            color: Color.fromRGBO(190, 150, 28, 1.0),
+                            size: 10,
+                          ),
+                          Text(
+                            ' + 1800/ h',
+                            style: Get.textTheme.labelSmall,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  const VerticalDivider(
+                    color: Colors.grey,
+                    indent: 8,
+                    endIndent: 8,
+                  ),
+                  const Gap(5),
+                  const FaIcon(
+                    FontAwesomeIcons.gears,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  const Gap(5),
+                ],
+              ),
+            ),
+          )
+        ],
+      ).animate().fadeIn();
+    }
+    else{
+      return secondOfRowProfile();
+    }
   }
 }

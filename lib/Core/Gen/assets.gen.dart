@@ -15,16 +15,16 @@ class $AssetsJpgGen {
   /// File path: assets/jpg/back sky.jpg
   AssetGenImage get backSky => const AssetGenImage('assets/jpg/back sky.jpg');
 
+  /// File path: assets/jpg/backgroudGame.jpg
+  AssetGenImage get backgroudGame =>
+      const AssetGenImage('assets/jpg/backgroudGame.jpg');
+
   /// File path: assets/jpg/background.jpg
   AssetGenImage get background =>
       const AssetGenImage('assets/jpg/background.jpg');
 
-  /// File path: assets/jpg/backgroundGame.jpg
-  AssetGenImage get backgroundGame =>
-      const AssetGenImage('assets/jpg/backgroundGame.jpg');
-
   /// List of all assets
-  List<AssetGenImage> get values => [backSky, background, backgroundGame];
+  List<AssetGenImage> get values => [backSky, backgroudGame, background];
 }
 
 class $AssetsPngGen {

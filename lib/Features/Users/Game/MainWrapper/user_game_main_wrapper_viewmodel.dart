@@ -4,22 +4,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../Core/Gen/assets.gen.dart';
+
 class UserGameMainWrapperViewModel extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
   RxString title = ''.obs;
   RxInt selectedIndex = 0.obs;
   RxInt power = 88.obs;
-  var backgroundColor = const Color.fromRGBO(67, 155, 171, 1.0).obs;
+  var backgroundColor = const Color.fromRGBO(126, 126, 126, 0.9294117647058824).obs;
   var avatarColor =   const Color.fromRGBO(243, 195, 39, 1.0).obs;
-  PageController pageController = PageController(initialPage: -1);
+  var avatar = Assets.png.girl.provider().obs;
+  var backgroundGame = Assets.jpg.backgroudGame.provider().obs;
+  late PageController pageController;
 
   @override
   void onInit() {
     tabController = TabController(
       length: 4,
       vsync: this,
-      initialIndex: 1,
+      initialIndex: 0,
       animationDuration: const Duration(milliseconds: 300),
+
+    );
+    pageController = PageController(
+      initialPage: 0
     );
     super.onInit();
   }
@@ -47,7 +55,8 @@ class UserGameMainWrapperViewModel extends GetxController with GetTickerProvider
     switch (index) {
       case 0:
         title.value = 'G-miner';
-        backgroundColor.value = const Color.fromRGBO(67, 155, 171, 1.0);
+        backgroundColor.value = const Color.fromRGBO(
+            161, 161, 161, 0.9294117647058824);
         avatarColor.value = const Color.fromRGBO(243, 195, 39, 1.0);
 
         break;
@@ -71,6 +80,13 @@ class UserGameMainWrapperViewModel extends GetxController with GetTickerProvider
   }
 
 
+
+  void changerAvatar(ImageProvider provider){
+    avatar.value = provider;
+  }
+  void changerBackGroundGame(ImageProvider provider){
+    backgroundGame.value = provider;
+  }
 
   void updatePower(int newValue) {
     power.value = newValue;

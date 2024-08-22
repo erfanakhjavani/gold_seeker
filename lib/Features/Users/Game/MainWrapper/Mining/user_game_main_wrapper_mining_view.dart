@@ -25,7 +25,7 @@ class UserGameMainWrapperMiningView extends StatelessWidget {
             height: Get.height,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: Assets.jpg.backgroundGame.provider(),
+                  image: userGameMainWrapperViewModel.backgroundGame.value,
                   fit: BoxFit.cover),
 
               borderRadius: const BorderRadius.only(
@@ -93,9 +93,9 @@ class MiniContainer extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Container(
         width: Get.width / 5,
-        height: Get.height / 8.4,
+        height:  Get.height / 9.5 ,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(40, 103, 117, 0.8),
+          color: Colors.black54,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Stack(
@@ -103,11 +103,11 @@ class MiniContainer extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  top: isSecond ? 10 : 8, bottom: isSecond ? 40 : 28),
+                  top: 8, bottom: isSecond ? 50 : 35),
               child: Image.asset(image),
             ),
             Padding(
-              padding: EdgeInsets.only(top: isSecond ? 45 : 70),
+              padding: EdgeInsets.only(top: isSecond ? 20 : 40),
               child: Text(
                 primaryText,
                 style: Get.textTheme.labelLarge,
@@ -115,7 +115,7 @@ class MiniContainer extends StatelessWidget {
             ),
             isSecond
                 ? Padding(
-              padding: const EdgeInsets.only(top: 80),
+              padding: const EdgeInsets.only(top: 55),
               child: Text(
                 secondText ?? '',
                 style: Get.textTheme.labelMedium,
