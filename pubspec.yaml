@@ -21,7 +21,10 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   path_provider: ^2.0.1
-
+  icons_launcher: ^2.1.7
+  connectivity_plus: ^6.0.5
+  loading_animation_widget: ^1.2.1
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -41,7 +44,6 @@ flutter:
   assets:
     - assets/png/
     - assets/jpg/
-    - assets/json/
     - assets/webp/
 
   fonts:
@@ -60,3 +62,18 @@ flutter:
     - family: Samurai
       fonts:
         - asset: assets/fonts/Samurai/SamuraiBlast.otf
+
+
+
+icons_launcher:
+  image_path: 'assets/png/logo.png'
+  platforms:
+    android:
+      enable: true
+      adaptive_round_image: 'assets/png/logo.png'
+    ios:
+      enable: true
+      image_path: 'assets/png/logo.png'
+
+
+

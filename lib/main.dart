@@ -8,25 +8,19 @@ import 'package:gs/Features/Users/Registration/UserName/user_registration_userna
 import 'package:hive_flutter/hive_flutter.dart';
 import 'Core/Bindings/bindings.dart';
 
-void main() async {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   await Hive.initFlutter();
   Hive.registerAdapter(UserRegistrationUsernameModelAdapter());
   Hive.registerAdapter(UserRegistrationGenderModelAdapter());
-
-  var box = await Hive.openBox('userBox');
-  bool isRegistered = box.get('isRegistered', defaultValue: false);
-
-  runApp(Main(isRegistered: isRegistered));
+  runApp(const Main());
 }
 
 class Main extends StatelessWidget {
-  final bool isRegistered;
+  const Main({super.key});
 
-  const Main({super.key, required this.isRegistered});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +30,7 @@ class Main extends StatelessWidget {
       title: 'Gold Seeker',
       theme: AppThemes.primary,
       getPages: AppRoute.pages,
-      initialRoute: isRegistered ? AppRoute.userGameMainWrapper : AppRoute.userRegistrationLanguage,
+      initialRoute: AppRoute.splashView
     );
   }
 }

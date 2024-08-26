@@ -1,14 +1,10 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../Core/Gen/assets.gen.dart';
 
 class UserGameMainWrapperViewModel extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
-  RxString title = ''.obs;
+  RxString title = 'Gold Seeker'.obs;
   RxInt selectedIndex = 0.obs;
   RxInt power = 88.obs;
   var backgroundColor = const Color.fromRGBO(126, 126, 126, 0.9294117647058824).obs;
@@ -55,8 +51,7 @@ class UserGameMainWrapperViewModel extends GetxController with GetTickerProvider
     switch (index) {
       case 0:
         title.value = 'G-miner';
-        backgroundColor.value = const Color.fromRGBO(
-            161, 161, 161, 0.9294117647058824);
+        backgroundColor.value = const Color.fromRGBO(161, 161, 161, 0.9294117647058824);
         avatarColor.value = const Color.fromRGBO(243, 195, 39, 1.0);
 
         break;
@@ -91,6 +86,8 @@ class UserGameMainWrapperViewModel extends GetxController with GetTickerProvider
   void updatePower(int newValue) {
     power.value = newValue;
   }
+
+
 
 
 }

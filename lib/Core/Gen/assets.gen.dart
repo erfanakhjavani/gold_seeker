@@ -45,15 +45,22 @@ class $AssetsPngGen {
   /// File path: assets/png/iconUp.png
   AssetGenImage get iconUp => const AssetGenImage('assets/png/iconUp.png');
 
+  /// File path: assets/png/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/png/logo.png');
+
   /// File path: assets/png/shovel.png
   AssetGenImage get shovel => const AssetGenImage('assets/png/shovel.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [craft, erth, girl, hatter, iconUp, shovel];
+  List<AssetGenImage> get values =>
+      [craft, erth, girl, hatter, iconUp, logo, shovel];
 }
 
 class $AssetsWebpGen {
   const $AssetsWebpGen();
+
+  /// File path: assets/webp/logo.webp
+  AssetGenImage get logo => const AssetGenImage('assets/webp/logo.webp');
 
   /// File path: assets/webp/man.webp
   AssetGenImage get man => const AssetGenImage('assets/webp/man.webp');
@@ -62,7 +69,7 @@ class $AssetsWebpGen {
   AssetGenImage get woman => const AssetGenImage('assets/webp/woman.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [man, woman];
+  List<AssetGenImage> get values => [logo, man, woman];
 }
 
 class Assets {

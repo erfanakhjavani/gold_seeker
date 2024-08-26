@@ -18,7 +18,7 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
   final List<UserGameMainWrapperEmpireModel> userModel = [
     UserGameMainWrapperEmpireModel(
       imageLevel: Assets.jpg.background.provider(),
-      name: 'Maryam',
+      name: 'x',
       genderAvatar: Assets.webp.woman.provider(),
       color: Colors.orange,
       power: 90,
@@ -26,7 +26,7 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
     ),
     UserGameMainWrapperEmpireModel(
       imageLevel: Assets.jpg.backSky.provider(),
-      name: 'Morteza',
+      name: 'y',
       genderAvatar: Assets.webp.man.provider(),
       color: Colors.blueAccent,
       power: 50,
@@ -34,7 +34,7 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
     ),
     UserGameMainWrapperEmpireModel(
       imageLevel: Assets.jpg.backgroudGame.provider(),
-      name: 'Ali',
+      name: 'z',
       genderAvatar: Assets.png.hatter.provider(),
       color: Colors.black87,
       power: 12,

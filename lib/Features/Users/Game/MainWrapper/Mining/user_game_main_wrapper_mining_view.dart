@@ -3,16 +3,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/Mining/user_game_main_wrapper_mining_viewmodel.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_viewmodel.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../Core/Gen/assets.gen.dart';
 
-class UserGameMainWrapperMiningView extends StatelessWidget {
+class UserGameMainWrapperMiningView extends GetView<UserGameMainWrapperMiningViewModel> {
   UserGameMainWrapperMiningView({super.key});
 
-  final UserGameMainWrapperMiningViewModel userGameMainWrapperMiningViewModel =
-  Get.put(UserGameMainWrapperMiningViewModel());
 
   final UserGameMainWrapperViewModel userGameMainWrapperViewModel =
-  Get.put(UserGameMainWrapperViewModel());
+  Get.find<UserGameMainWrapperViewModel>();
 
 
 
@@ -20,58 +19,68 @@ class UserGameMainWrapperMiningView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: userGameMainWrapperViewModel.backgroundColor.value,
-      body: Container(
-            width: Get.width,
-            height: Get.height,
-            decoration: BoxDecoration(
-              image: DecorationImage(
+      body: FutureBuilder(
+        future: precacheImage(AssetImage(Assets.jpg.backgroudGame.path), context),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Container(
+              width: Get.width,
+              height: Get.height,
+              decoration: BoxDecoration(
+                image: DecorationImage(
                   image: userGameMainWrapperViewModel.backgroundGame.value,
-                  fit: BoxFit.cover),
-
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(50),
-                topRight: Radius.circular(50),
-              ),
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Row(
-                    children: [
-                      Obx(
-                            () => GestureDetector(
-                          onTap: () {
-                            userGameMainWrapperMiningViewModel.addTwoHours();
-                          },
-                          child: MiniContainer(
-                            image: Assets.png.craft.path,
-                            primaryText: 'Energy',
-                            secondText:
-                            userGameMainWrapperMiningViewModel.countdown.value,
-                          ).animate().flip(delay: 200.ms),
-                        ),
-                      ),
-                      MiniContainer(
-                        image: Assets.png.craft.path,
-                        primaryText: 'Level 8',
-                      ).animate().flip(delay: 300.ms),
-                      MiniContainer(
-                        image: Assets.png.shovel.path,
-                        primaryText: 'Level 4',
-                      ).animate().flip(delay: 400.ms),
-                      MiniContainer(
-                        image: Assets.png.hatter.path,
-                        primaryText: 'Level 10',
-                      ).animate().flip(delay: 500.ms),
-                    ],
-                  ),
+                  fit: BoxFit.cover,
                 ),
-              ],
-            ),
-          ).animate().fadeIn(),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Row(
+                      children: [
+                        Obx(
+                              () => GestureDetector(
+                            onTap: () {
+                              controller.addTwoHours();
+                            },
+                            child: MiniContainer(
+                              image: Assets.png.craft.path,
+                              primaryText: 'Energy',
+                              secondText: controller.countdown.value,
+                            ).animate().flip(delay: 200.ms),
+                          ),
+                        ),
+                        MiniContainer(
+                          image: Assets.png.craft.path,
+                          primaryText: 'Level 8',
+                        ).animate().flip(delay: 300.ms),
+                        MiniContainer(
+                          image: Assets.png.shovel.path,
+                          primaryText: 'Level 4',
+                        ).animate().flip(delay: 400.ms),
+                        MiniContainer(
+                          image: Assets.png.hatter.path,
+                          primaryText: 'Level 10',
+                        ).animate().flip(delay: 500.ms),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ).animate().fadeIn();
+          } else {
+            return Center(
+              child: LoadingAnimationWidget.inkDrop(color: Colors.white, size: 30), // نمایش لودینگ تا زمان لود شدن تصویر
+            );
+          }
+        },
+      ),
+    );
 
-    ).animate();
   }
 }
 

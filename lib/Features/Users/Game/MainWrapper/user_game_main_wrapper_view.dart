@@ -22,71 +22,75 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-          backgroundColor: controller.backgroundColor.value,
-          body: Column(
-            children: [
-              Container(
-                width: Get.width,
-                height: Get.height / 4.3,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black,
-                      Colors.black,
-                      controller.backgroundColor.value,
-                    ],
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    customAppBar(
-                      text: controller.selectedIndex.value != 3
-                          ?controller.title.value  :usernameViewModel.username.value,
-                      color: Colors.white,
-                      actions:controller.selectedIndex.value == 3 ? [] : [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.gear),
-                            color: Colors.white,
-                          ),
-                        ),
+    return Obx(() => SafeArea(
+      child: Scaffold(
+            backgroundColor: controller.backgroundColor.value,
+            body: Column(
+              children: [
+                Container(
+                  width: Get.width,
+                  height: Get.height / 4.3,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black,
+                        Colors.black,
+                        controller.backgroundColor.value,
                       ],
                     ),
-                    firstOfRow(
-                      image: controller.avatar.value,
-                        userRegistration: usernameViewModel,
-                        color: controller.avatarColor.value,
-                        index: controller.selectedIndex.value
+                  ),
+                  child: SizedBox(
+                    child: Wrap(
+                      children: [
+                        customAppBar(
+                          text: controller.selectedIndex.value != 3
+                              ?controller.title.value  :usernameViewModel.username.value,
+                          color: Colors.white,
+                          actions:controller.selectedIndex.value == 3 ? [] : [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15.0),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const FaIcon(FontAwesomeIcons.gear),
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        firstOfRow(
+                          image: controller.avatar.value,
+                            userRegistration: usernameViewModel,
+                            color: controller.avatarColor.value,
+                            index: controller.selectedIndex.value
+                        ),
+                        secondOfRow(
+                            userGameMainWrapperViewModel: controller,
+                            index: controller.selectedIndex.value)
+                      ],
                     ),
-                    secondOfRow(
-                        userGameMainWrapperViewModel: controller,
-                        index: controller.selectedIndex.value)
-                  ],
-                ),
-              ),
-              Expanded(
-                child: GetBuilder<UserGameMainWrapperViewModel>(
-                  builder: (context) => PageView(
-                    onPageChanged: controller.onPageChanged,
-                    controller: controller.pageController,
-                    children: [
-                      UserGameMainWrapperMiningView(),
-                      UserGameMainWrapperEmpireView(),
-                      UserGameMainWrapperShopView(),
-                      UserGameMainWrapperProfileView(),
-                    ],
                   ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: GetBuilder<UserGameMainWrapperViewModel>(
+                    builder: (context) => PageView(
+                      onPageChanged: controller.onPageChanged,
+                      controller: controller.pageController,
+                      children: [
+                        UserGameMainWrapperMiningView(),
+                        UserGameMainWrapperEmpireView(),
+                        UserGameMainWrapperShopView(),
+                        UserGameMainWrapperProfileView(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            bottomNavigationBar: customNavigatorBar(),
           ),
-          bottomNavigationBar: customNavigatorBar(),
-        ));
+    ));
   }
 
   Obx customNavigatorBar() => Obx(
@@ -117,10 +121,9 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 2, left: 18),
+          padding: const EdgeInsets.only(left: 18),
           child: SizedBox(
             width: Get.width / 4,
-            height: 50,
             child: Stack(
               children: [
                 Container(
@@ -322,7 +325,10 @@ class UserGameMainWrapperView extends GetView<UserGameMainWrapperViewModel> {
       ).animate().fadeIn();
     }
     else{
-      return secondOfRowProfile();
+      return Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: secondOfRowProfile(),
+      );
     }
   }
 }

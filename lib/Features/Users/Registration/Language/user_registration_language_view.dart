@@ -32,7 +32,7 @@ class UserRegistrationLanguageView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 ButtonWidget(
-                   text: "G-Miner",
+                   text: "Gold Seeker",
                    textStyle: const TextStyle(
                      color: Colors.white,
                      fontFamily: FontFamily.samurai,

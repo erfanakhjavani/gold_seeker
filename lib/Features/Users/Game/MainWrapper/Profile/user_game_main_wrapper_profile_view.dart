@@ -36,6 +36,7 @@ class UserGameMainWrapperProfileView extends StatelessWidget {
 Widget firstOfRowProfile(
     {required int miner, required int friends, required int followers}) {
   return Row(
+    mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       const Gap(20),
