@@ -48,7 +48,7 @@ class UserGameMainWrapperMiningView extends GetView<UserGameMainWrapperMiningVie
                               controller.addTwoHours();
                             },
                             child: MiniContainer(
-                              image: Assets.png.craft.path,
+                              image: Assets.png.iconUp.path,
                               primaryText: 'Energy',
                               secondText: controller.countdown.value,
                             ).animate().flip(delay: 200.ms),

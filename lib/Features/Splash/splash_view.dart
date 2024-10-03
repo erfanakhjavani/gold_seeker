@@ -23,7 +23,7 @@ class SplashView extends GetView<SplashViewmodel> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Assets.png.logo.image(
+            Assets.webp.logo.image(
               width: MediaQuery.sizeOf(context).width * 0.8
             ).animate().flipH(delay: 1000.ms),
             const SizedBox(
