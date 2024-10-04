@@ -10,13 +10,13 @@ import 'package:gs/Features/Users/Registration/UserName/user_registration_userna
 class Binding extends Bindings{
   @override
   void dependencies() {
-    Get.lazyPut(() => UserGameMainWrapperMiningViewModel(),);
-    Get.lazyPut(() => UserRegistrationUsernameViewModel());
-    Get.lazyPut(() => UserRegistrationGenderViewModel());
-    Get.lazyPut(() => UserGameMainWrapperEmpireViewModel());
-    Get.lazyPut(() => UserGameMainWrapperShopViewmodel());
-    Get.lazyPut(() => UserGameMainWrapperViewModel());
-    Get.lazyPut(() => SplashViewmodel());
+    Get.put(UserGameMainWrapperMiningViewModel(),);
+    Get.put(UserRegistrationUsernameViewModel());
+    Get.put(UserRegistrationGenderViewModel());
+    Get.put(UserGameMainWrapperEmpireViewModel());
+    Get.put(UserGameMainWrapperShopViewmodel());
+    Get.put(UserGameMainWrapperViewModel());
+    Get.put(SplashViewmodel());
   }
 
  }

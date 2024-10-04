@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:get/get.dart';
 
 class UserGameMainWrapperMiningViewModel extends GetxController {
@@ -7,8 +6,6 @@ class UserGameMainWrapperMiningViewModel extends GetxController {
   late Timer _timer;
   late Duration _duration;
   final Duration _maxDuration = const Duration(hours: 24);
-
-
 
   @override
   void onInit() {
@@ -34,7 +31,7 @@ class UserGameMainWrapperMiningViewModel extends GetxController {
     } else {
       _duration = _maxDuration;
     }
-    _timer.cancel(); 
+    _timer.cancel();
     startTimer();
     countdown.value = formatDuration(_duration);
   }
@@ -45,7 +42,6 @@ class UserGameMainWrapperMiningViewModel extends GetxController {
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
-
 
   @override
   void onClose() {

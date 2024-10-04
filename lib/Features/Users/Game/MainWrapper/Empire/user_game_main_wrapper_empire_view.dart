@@ -5,15 +5,13 @@ import 'package:get/get.dart';
 import 'package:gs/Core/Gen/assets.gen.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/Empire/user_game_main_wrapper_empire_model.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/Empire/user_game_main_wrapper_empire_viewmodel.dart';
-import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_viewmodel.dart';
 import '../../../Registration/UserName/user_registration_username_viewmodel.dart';
+import '../user_game_main_wrapper_viewmodel.dart';
 
 class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireViewModel> {
   UserGameMainWrapperEmpireView({super.key});
 
 
-  final UserRegistrationUsernameViewModel usernameViewModel =
-  Get.put(UserRegistrationUsernameViewModel());
 
   final List<UserGameMainWrapperEmpireModel> userModel = [
     UserGameMainWrapperEmpireModel(
@@ -22,7 +20,7 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
       genderAvatar: Assets.webp.woman.provider(),
       color: Colors.orange,
       power: 90,
-      isLocked: false, // Locked
+      isLocked: false,
     ),
     UserGameMainWrapperEmpireModel(
       imageLevel: Assets.jpg.backSky.provider(),
@@ -30,7 +28,7 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
       genderAvatar: Assets.webp.man.provider(),
       color: Colors.blueAccent,
       power: 50,
-      isLocked: false, // Locked
+      isLocked: false,
     ),
     UserGameMainWrapperEmpireModel(
       imageLevel: Assets.jpg.backgroudGame.provider(),
@@ -38,9 +36,8 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
       genderAvatar: Assets.png.hatter.provider(),
       color: Colors.black87,
       power: 12,
-      isLocked: true, // Not locked
+      isLocked: true,
     ),
-    // Add more items here
   ];
 
   @override
@@ -52,7 +49,9 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
         height: Get.height,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: Assets.jpg.backSky.provider(), fit: BoxFit.cover),
+            image: Assets.jpg.backSky.provider(),
+            fit: BoxFit.cover,
+          ),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(50),
             topRight: Radius.circular(50),
@@ -66,28 +65,27 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: ListView.builder(
-                  padding: const EdgeInsets.all(20),
-                  itemCount: userModel.length,
-                  itemBuilder: (context, index) {
-                    controller.updatePower(userModel[index].power);
-                    return Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-
-                           if(userModel[index].isLocked == false){
-                             // برگشت به صفحه اول
-                             final viewModel = Get.find<UserGameMainWrapperViewModel>();
-                             final usernameModel = Get.find<UserRegistrationUsernameViewModel>();
-                             viewModel.pageController.jumpToPage(0);
-                             viewModel.tabController.animateTo(0);
-                             viewModel.changerAvatar(userModel[index].genderAvatar);
-                             usernameModel.setUserName(userModel[index].name);
-                             viewModel.changerBackGroundGame(userModel[index].imageLevel);
-                             usernameModel.onInit();
-                           }
-                           return;
-                          },
+                padding: const EdgeInsets.all(20),
+                itemCount: userModel.length,
+                itemBuilder: (context, index) {
+                  controller.updatePower(userModel[index].power);
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (!userModel[index].isLocked) {
+                            final viewModel = Get.find<UserGameMainWrapperViewModel>();
+                            final usernameModel = Get.find<UserRegistrationUsernameViewModel>();
+                            viewModel.pageController.jumpToPage(0);
+                            viewModel.tabController.animateTo(0);
+                            viewModel.changeAvatar(userModel[index].genderAvatar);
+                            usernameModel.setUserName(userModel[index].name);
+                            viewModel.changeBackgroundGame(userModel[index].imageLevel);
+                            usernameModel.onInit();
+                          }
+                        },
+                        child: Opacity(
+                          opacity: userModel[index].isLocked ? 0.6 : 1.0,
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                             width: Get.width * .9,
@@ -99,38 +97,31 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
                             ),
                             child: Stack(
                               children: [
-                                // محتوای اصلی آیتم (با شفافیت کم اگر قفل باشد)
-                                Opacity(
-                                  opacity: userModel[index].isLocked ? 0.6 : 1.0,
-                                  child: Stack(
-                                    children: [
-                                      firstOfRow(index: index),
-                                      secondOfRow(index: index),
-                                    ],
-                                  ),
-                                ),
                                 if (userModel[index].isLocked)
-                                  Column(
-                                    children: [
-                                      const Center(
-                                        child: Icon(Icons.lock, color: Colors.black54, size: 50),
-                                      ),
-                                      Text('Lock', style: Get.textTheme.bodySmall?.copyWith(color: Colors.black87)),
-                                    ],
+                                  const Center(
+                                    child: Icon(
+                                      Icons.lock,
+                                      color: Colors.black54,
+                                      size: 50,
+                                    ),
                                   ),
+                                firstOfRow(index: index),
+                                secondOfRow(index: index),
                               ],
                             ),
                           ),
                         ),
-                        const Gap(10),
-                      ],
-                    );
-                  }).animate().fadeIn(),
-            )
+                      ),
+                      const Gap(10),
+                    ],
+                  );
+                },
+              ).animate().fadeIn(),
+            ),
           ],
         ),
       ).animate().fadeIn(),
-    ).animate();
+    );
   }
 
   Widget firstOfRow({required int index}) {
@@ -141,73 +132,75 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
           width: 90,
           height: 80,
           decoration: BoxDecoration(
-            image: DecorationImage(image: userModel[index].imageLevel, fit: BoxFit.cover),
+            image: DecorationImage(
+              image: userModel[index].imageLevel,
+              fit: BoxFit.cover,
+            ),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(109),
               bottomRight: Radius.circular(134),
               topLeft: Radius.circular(170),
               topRight: Radius.circular(170),
             ),
-            shape: BoxShape.rectangle,
           ),
         ),
-        //! Avatar
-        userModel[index].isLocked
-            ? const SizedBox.shrink()
-            : Padding(
-          padding: const EdgeInsets.only(top: 2, left: 18),
-          child: SizedBox(
-            width: Get.width / 4,
-            height: 50,
-            child: Stack(
-              children: [
-                Container(
-                  width: Get.width / 6,
-                  height: Get.height / 25,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    color: userModel[index].color,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 6, top: 9, left: 30.0),
-                    child: Assets.png.iconUp.image(),
-                  ),
-                ),
-                Container(
-                  width: Get.width / 11.5,
-                  height: Get.height / 25,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: userModel[index].genderAvatar),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      topRight: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
+        if (!userModel[index].isLocked)
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 2, left: 18),
+              child: SizedBox(
+                width: Get.width / 4,
+                height: 50,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: Get.width / 6,
+                      height: Get.height / 25,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(12)),
+                        color: userModel[index].color,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 6, top: 9, left: 30.0),
+                        child: Assets.png.iconUp.image(),
+                      ),
                     ),
-                  ),
+                    Container(
+                      width: Get.width / 11.5,
+                      height: Get.height / 25,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: userModel[index].genderAvatar,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                          topRight: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-        //! UserName
-        userModel[index].isLocked
-            ? const SizedBox.shrink()
-            : Text(
-          userModel[index].name,
-          style: Get.textTheme.bodyLarge?.copyWith(
+        if (!userModel[index].isLocked)
+          Text(
+            userModel[index].name,
+            style: Get.textTheme.bodyLarge?.copyWith(
               fontSize: 12,
               letterSpacing: 1,
-              color: Colors.black87),
-        ),
+              color: Colors.black87,
+            ),
+          ),
       ],
     );
   }
 
   Widget secondOfRow({required int index}) {
-    return userModel[index].isLocked
-        ? const SizedBox.shrink()
-        : Padding(
+    return !userModel[index].isLocked
+        ? Padding(
       padding: const EdgeInsets.only(top: 55.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -224,17 +217,20 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
                       Text(
                         'Power',
                         style: Get.textTheme.labelSmall?.copyWith(
-                            color: const Color.fromRGBO(28, 28, 28, 1.0)),
+                          color: const Color.fromRGBO(28, 28, 28, 1.0),
+                        ),
                       ),
                       Text(
                         '${userModel[index].power}/',
                         style: Get.textTheme.labelSmall?.copyWith(
-                            color: const Color.fromRGBO(253, 253, 253, 1.0)),
+                          color: const Color.fromRGBO(253, 253, 253, 1.0),
+                        ),
                       ),
                       Text(
                         '100',
                         style: Get.textTheme.labelSmall?.copyWith(
-                            color: const Color.fromRGBO(0, 0, 0, 1.0)),
+                          color: const Color.fromRGBO(0, 0, 0, 1.0),
+                        ),
                       ),
                     ],
                   ),
@@ -251,7 +247,8 @@ class UserGameMainWrapperEmpireView extends GetView<UserGameMainWrapperEmpireVie
           ),
         ],
       ),
-    );
+    )
+        : const SizedBox.shrink();
   }
 }
 
@@ -261,7 +258,6 @@ class SpinningWheelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Get.put(UserGameMainWrapperEmpireViewModel());
-
     return SingleChildScrollView(
       child: RotationTransition(
         turns: viewModel.animation,

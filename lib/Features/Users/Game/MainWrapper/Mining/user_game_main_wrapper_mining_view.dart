@@ -3,84 +3,68 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/Mining/user_game_main_wrapper_mining_viewmodel.dart';
 import 'package:gs/Features/Users/Game/MainWrapper/user_game_main_wrapper_viewmodel.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../Core/Gen/assets.gen.dart';
 
 class UserGameMainWrapperMiningView extends GetView<UserGameMainWrapperMiningViewModel> {
   UserGameMainWrapperMiningView({super.key});
 
-
   final UserGameMainWrapperViewModel userGameMainWrapperViewModel =
   Get.find<UserGameMainWrapperViewModel>();
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: userGameMainWrapperViewModel.backgroundColor.value,
-      body: FutureBuilder(
-        future: precacheImage(AssetImage(Assets.jpg.backgroudGame.path), context),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Container(
-              width: Get.width,
-              height: Get.height,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: userGameMainWrapperViewModel.backgroundGame.value,
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                ),
-              ),
-              child: Column(
+      body: Container(
+        width: Get.width,
+        height: Get.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: userGameMainWrapperViewModel.backgroundGame.value,
+            fit: BoxFit.cover,
+          ),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(50),
+            topRight: Radius.circular(50),
+          ),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                      children: [
-                        Obx(
-                              () => GestureDetector(
-                            onTap: () {
-                              controller.addTwoHours();
-                            },
-                            child: MiniContainer(
-                              image: Assets.png.iconUp.path,
-                              primaryText: 'Energy',
-                              secondText: controller.countdown.value,
-                            ).animate().flip(delay: 200.ms),
-                          ),
-                        ),
-                        MiniContainer(
-                          image: Assets.png.craft.path,
-                          primaryText: 'Level 8',
-                        ).animate().flip(delay: 300.ms),
-                        MiniContainer(
-                          image: Assets.png.shovel.path,
-                          primaryText: 'Level 4',
-                        ).animate().flip(delay: 400.ms),
-                        MiniContainer(
-                          image: Assets.png.hatter.path,
-                          primaryText: 'Level 10',
-                        ).animate().flip(delay: 500.ms),
-                      ],
+                  Obx(
+                        () => GestureDetector(
+                      onTap: () {
+                        controller.addTwoHours();
+                      },
+                      child: MiniContainer(
+                        image: Assets.png.iconUp.path,
+                        primaryText: 'Energy',
+                        secondText: controller.countdown.value,
+                      ).animate().flip(delay: 200.ms),
                     ),
                   ),
+                  MiniContainer(
+                    image: Assets.png.craft.path,
+                    primaryText: 'Level 8',
+                  ).animate().flip(delay: 300.ms),
+                  MiniContainer(
+                    image: Assets.png.shovel.path,
+                    primaryText: 'Level 4',
+                  ).animate().flip(delay: 400.ms),
+                  MiniContainer(
+                    image: Assets.png.hatter.path,
+                    primaryText: 'Level 10',
+                  ).animate().flip(delay: 500.ms),
                 ],
               ),
-            ).animate().fadeIn();
-          } else {
-            return Center(
-              child: LoadingAnimationWidget.inkDrop(color: Colors.white, size: 30), // نمایش لودینگ تا زمان لود شدن تصویر
-            );
-          }
-        },
-      ),
+            ),
+          ],
+        ),
+      ).animate().fadeIn(),
     );
-
   }
 }
 
@@ -89,11 +73,12 @@ class MiniContainer extends StatelessWidget {
   final String primaryText;
   final String? secondText;
 
-  const MiniContainer(
-      {super.key,
-        required this.image,
-        required this.primaryText,
-        this.secondText});
+  const MiniContainer({
+    super.key,
+    required this.image,
+    required this.primaryText,
+    this.secondText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +87,7 @@ class MiniContainer extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Container(
         width: Get.width / 5,
-        height:  Get.height / 9.5 ,
+        height: Get.height / 9.5,
         decoration: BoxDecoration(
           color: Colors.black54,
           borderRadius: BorderRadius.circular(12),
@@ -111,8 +96,7 @@ class MiniContainer extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  top: 8, bottom: isSecond ? 50 : 35),
+              padding: EdgeInsets.only(top: 8, bottom: isSecond ? 50 : 35),
               child: Image.asset(image),
             ),
             Padding(
